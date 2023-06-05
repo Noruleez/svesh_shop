@@ -52,7 +52,7 @@ class CountryProductsList(View):
 
 class ProductsList(View):
     def get(self, request):
-        products = Product.objects.all().order_by('delay')
+        products = Product.objects.filter().order_by('delay')
         return render(request, 'shop/index.html', context={'products': products})
 
 
