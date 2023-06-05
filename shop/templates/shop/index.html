@@ -7,9 +7,11 @@
 {% block content %}
     <div class="container">
         <div class="row mt-5">
-            {% for product in products %}
-                {% include 'shop/includes/product_card_template.html' %}
-            {% endfor %}
+            {% if products %}
+                {% for product in products %}
+                    {% include 'shop/includes/product_card_template.html' %}
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
