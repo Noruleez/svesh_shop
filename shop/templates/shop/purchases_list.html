@@ -1,0 +1,23 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            {% for purchase in purchases %}
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Дата и время покупки: {{ purchase.date_time_create }}</p>
+                            <p>Количество аккаунтов: {{ purchase.amount }}</p>
+                            <a href="{{ purchase.get_absolute_url }}" class="btn btn-outline-success">Ссылки на скачивание</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        {% for format in formats %}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <a href="{{ format.get_absolute_url }}" class="btn btn-outline-success">{{ format.title }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+{% if products %}
+    <div class="container">
+        <div class="row mt-5">
+            {% for product in products %}
+                {% include 'shop/includes/product_card_template.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12 mt-5">
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p class="card-text border-bottom">Товар закончился</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

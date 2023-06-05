@@ -1,0 +1,29 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col">
+            <div class="card mt-5">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <p class="card-text border-bottom">Правила магазина</p>
+                    </div>
+                    <ul class="mt-5">
+                        <li>Все аккаунты проверяются перед выставлением</li>
+                        <li>После покупки, у пользователя есть 1 час на проверку аккаунта</li>
+                        <li>Если аккаунт по каким-либо причинам не открывается, пишите в наш Telegram</li>
+                        <li>Возврат денег осуществляется только в том случае, если аккаунт был забанен до использования</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

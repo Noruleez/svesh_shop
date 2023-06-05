@@ -1,0 +1,29 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col">
+            <div class="card mt-5">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <p class="card-text border-bottom">Информация о tdata</p>
+                    </div>
+                    <ul class="mt-5">
+                        <li>Скачайте Telegram Desktop с официального сайта</li>
+                        <li>Найдите и зайдите в папку, в которой лежит Telegram.exe</li>
+                        <li>Перенесите туда папку 'tdata' из скачанного архива</li>
+                        <li>Пароль 2FA находится в папке 'tdata'</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

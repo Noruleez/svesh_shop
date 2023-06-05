@@ -1,0 +1,49 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col">
+            <div class="card mt-5">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <p class="card-text border-bottom">Страна регистрации - {{ product.country.title }}</p>
+                    <p class="card-text border-bottom">Формат - {{ product.format.title }}</p>
+                    <p class="card-text border-bottom">Отлежка - {{ product.delay }} дней</p>
+                    <p class="card-text border-bottom">Цена - {{ product.price }} руб.</p>
+                    <p class="card-text border-bottom">Осталось {{ product.amount }} шт.</p>
+                    {% if request.user.is_authenticated %}
+                        <form action="{{ product.get_absolute_url }}" method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    {% if field.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ field.errors }}
+                                        </div>
+                                    {% endif %}
+                                        Введите количество аккаунтов
+                                        {{ field }}
+                                </div>
+                            {% endfor %}
+                            <div class="text-center mt-5">
+                                <p>{{ error_balance }}</p>
+                                <button type="submit" class="btn btn-outline-success">Купить</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <div class="text-center">
+                            <a href="{% url 'account_signup' %}" class="btn btn-outline-success">Для покупки войдите/зарегистрируйтесь</a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

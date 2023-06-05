@@ -1,0 +1,20 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        Ссылки на скачивание:
+        <ul>
+            {% for link in links %}
+                <li>{{ link.link }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
