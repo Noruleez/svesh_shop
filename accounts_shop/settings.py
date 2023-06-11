@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'shop',
+    'payment'
 
     'allauth',
     'allauth.account',
@@ -86,14 +87,15 @@ WSGI_APPLICATION = 'accounts_shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'Hurrah_Damage_1',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'accounts_shop',
+        'USER': 'acsshopuser',
+        'PASSWORD': 'rbhz',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
 
