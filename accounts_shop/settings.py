@@ -90,12 +90,24 @@ WSGI_APPLICATION = 'accounts_shop.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'myproject',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'Hurrah_Damage_1',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+
+DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'accounts_shop',
         'USER': 'acsshopuser',
         'PASSWORD': 'rbhz',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '',
     }
 }
 
