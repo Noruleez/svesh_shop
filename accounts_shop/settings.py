@@ -99,18 +99,6 @@ DATABASES = {
     }
 }
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'accounts_shop',
-        'USER': 'acsshopuser',
-        'PASSWORD': 'rbhz',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
