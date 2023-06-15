@@ -17,3 +17,13 @@ class Success(View):
 class Fail(View):
     def get(self, request):
         return render(request, 'payment/fail.html')
+
+
+class ChoosePaymentSystem(View):
+    def get(self, request):
+        return render(request, 'payment/choose_payment_system.html')
+
+
+class QiwiPaymentSystem(View):
+    def get(self, request):
+        return render(request, 'payment/qiwi_payment_system.html')

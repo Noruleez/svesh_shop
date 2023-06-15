@@ -12,8 +12,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <p class="card-text border-bottom">Ваш баланс - {{ balance.amount }} руб.</p>
-                        <a href="{{ url 'choose_payment_system_url' }}" class="btn btn-outline-success">+ Пополнить</a>
+                        <a href="{% url 'qiwi_payment_system_url' %}" class="btn btn-outline-success">Qiwi</a>
                     </div>
                 </div>
                 <div class="card-footer">
