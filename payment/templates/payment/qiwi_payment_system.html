@@ -14,7 +14,7 @@
                     <div class="text-center">
                         <p>Оплата по Qiwi</p>
                     </div>
-                    <form action="{% url 'qiwi_payment_system_url' %}" method="get">
+                    <form action="https://pay.freekassa.ru/" method="post">
                         {% csrf_token %}
                         {% for field in form %}
                             <div class="form-group">
