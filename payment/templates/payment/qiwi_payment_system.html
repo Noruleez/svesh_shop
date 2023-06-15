@@ -14,19 +14,15 @@
                     <div class="text-center">
                         <p>Оплата по Qiwi</p>
                     </div>
-                    <form action="https://pay.freekassa.ru/" method="post">
-                        {% csrf_token %}
-                        {% for field in form %}
-                            <div class="form-group">
-                                {% if field.errors %}
-                                    <div class="alert alert-danger">
-                                        {{ field.errors }}
-                                    </div>
-                                {% endif %}
-                                    Введите сумму пополнения
-                                    {{ field }}
-                            </div>
-                        {% endfor %}
+                    <form method='get' action='https://pay.freekassa.ru/'>
+                        <input type='hidden' name='m' value={{m}}>
+                        <input type='hidden' name='oa' value={{oa}}>
+                        <input type='hidden' name='o' value={{o}}>
+                        <input type='hidden' name='s' value={{s}}>
+                        <input type='hidden' name='currency' value={{currency}}>
+                        <input type='hidden' name='i' value='1'>
+                        <input type='hidden' name='lang' value='ru'>
+                        <input type='submit' name='pay' value='Оплатить'>
                     </form>
                 </div>
                 <div class="card-footer">
