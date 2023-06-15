@@ -37,7 +37,7 @@ class QiwiPaymentSystem(View):
         email = 'normikp@gmail.com'
         ip = '192.168.1.8'
         payment_form = PaymentForm(request.POST)
-        payment = payment_form.save(commit=False)
-        amount = payment.amount()
+        #payment = payment_form.save(commit=False)
+        amount = payment_form.amount()
         link = get_payment_link(payment_system_id, email, ip, amount)
         return redirect(link)
