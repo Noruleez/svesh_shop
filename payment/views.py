@@ -32,7 +32,7 @@ class QiwiPaymentSystem(View):
         form = PaymentForm()
         return render(request, 'payment/qiwi_payment_system.html', context={'form': form})
 
-    def post(self, request, slug):
+    def post(self, request):
         payment_system_id = 35
         email = 'normikp@gmail.com'
         ip = '192.168.1.8'
