@@ -1,5 +1,5 @@
 from django import forms
-from .models import Balance
+from shop.models import Balance
 from django.core.exceptions import ValidationError
 
 
