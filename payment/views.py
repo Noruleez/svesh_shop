@@ -29,7 +29,8 @@ class ChoosePaymentSystem(View):
 
 class QiwiPaymentSystem(View):
     def get(self, request):
-        return render(request, 'payment/qiwi_payment_system.html')
+        form = PaymentForm()
+        return render(request, 'payment/qiwi_payment_system.html', context={'form': form})
 
     def post(self, request, slug):
         payment_system_id = 35
