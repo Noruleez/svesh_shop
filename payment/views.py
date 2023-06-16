@@ -5,9 +5,6 @@ from django.core.exceptions import ValidationError
 import hashlib
 from hashlib import md5
 
-from .forms import PaymentForm
-from .service import get_payment_link
-
 
 class Notify(View):
     def get(self, request):
@@ -29,9 +26,10 @@ class ChoosePaymentSystem(View):
         return render(request, 'payment/choose_payment_system.html')
 
 
-class QiwiPaymentSystem(View):
+class FreeKassaPaymentSystem(View):
     def get(self, request):
         merchant_id = '35421'
+        currency = 'RUB'
         order_amount = '100'
         currency = 'RUB'
         order_id = '1'
@@ -44,14 +42,4 @@ class QiwiPaymentSystem(View):
             's': sign,
             'currency': currency
         }
-        return render(request, 'payment/qiwi_payment_system.html', context)
-
-    def post(self, request):
-        payment_system_id = 35
-        email = 'normikp@gmail.com'
-        ip = '192.168.1.8'
-        payment_form = PaymentForm(request.POST)
-        payment = payment_form.save(commit=False)
-        amount = float(payment.amount)
-        link = get_payment_link(payment_system_id, email, ip, amount)
-        return redirect(link)
+        return render(request, 'payment/freekassa_payment_system.html', context)
