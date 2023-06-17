@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from django.core.exceptions import ValidationError
+from .forms import *
 import hashlib
 from hashlib import md5
 
@@ -28,8 +29,10 @@ class ChoosePaymentSystem(View):
 
 class FreeKassaPaymentSystem(View):
     def get(self, request):
+        form = PaymentForm(request.get)
+        if form.is_valid():
+            order_amount = f'{form.amount}'
         merchant_id = '35421'
-        order_amount = '100'
         currency = 'RUB'
         order_id = f'{request.user}'
         secret_word = 'wrRI*,Y}nau9Z4O'
