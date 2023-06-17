@@ -9,13 +9,16 @@
         <div class="col">
             <div class="card mt-5">
                 <div class="card-header">
+                    <div class="text-center">
+                        <h3>FreeKassa</h3>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <h3>FreeKassa</h3>
                         <form method='get' action='https://pay.freekassa.ru/'>
                             <input type='hidden' name='m' value={{m}}>
-                            <input type='hidden' name='oa' value={{oa}}>
+<!--                            <input type='hidden' name='oa' value={{oa}}>-->
+                            <p><input type='text' name='oa'></p>
                             <input type='hidden' name='o' value={{o}}>
                             <input type='hidden' name='s' value={{s}}>
                             <input type='hidden' name='currency' value={{currency}}>
