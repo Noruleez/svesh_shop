@@ -29,9 +29,7 @@ class ChoosePaymentSystem(View):
 
 class FreeKassaPaymentSystem(View):
     def get(self, request):
-        form = PaymentForm(request.get)
-        if form.is_valid():
-            order_amount = f'{form.amount}'
+        order_amount = '100'
         merchant_id = '35421'
         currency = 'RUB'
         order_id = f'{request.user}'
