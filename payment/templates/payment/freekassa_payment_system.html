@@ -15,7 +15,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <form method="post" action="{% url 'freekassa_payment_system_url_status' %}">
+                        <form method="post" action="{% url 'freekassa_payment_system_url' %}">
                             {% csrf_token %}
                             {{ form.amount }}
 <!--                                <button type="submit" class="btn btn-outline-success">Пополнить</button>-->
