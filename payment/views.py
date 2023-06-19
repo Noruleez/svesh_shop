@@ -29,7 +29,7 @@ class ChoosePaymentSystem(View):
 
 class FreeKassaPaymentSystem(View):
     def get(self, request):
-        return render(request, 'payment/freekassa_payment_system_status.html')
+        return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
     def post(self, request):
         form = PaymentForm(request.POST)
         if form.is_valid():
