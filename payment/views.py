@@ -34,9 +34,7 @@ class FreeKassaPaymentSystem(View):
         form = PaymentForm(request.POST)
         if form.is_valid():
             new_form = form.save(commit=False)
-            new_form.user = request.user
-            new_form.status = 'WaitPayment'
-            new_form.save()
+            FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
         return render(request, 'payment/freekassa_payment_system_status.html', context={'form': form})
         # return render(request, 'shop/product_detail.html', context={'form': bound_purchase_form})
 
