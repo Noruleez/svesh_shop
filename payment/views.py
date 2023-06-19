@@ -41,9 +41,8 @@ class FreeKassaPaymentSystem(View):
 
 class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
-        # user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
-        # order_amount = f'{user_payment.amount}'
-        order_amount = '111'
+        user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
+        order_amount = f'{user_payment.amount}'
         merchant_id = '35421'
         currency = 'RUB'
         order_id = f'{request.user.id}'
