@@ -15,14 +15,15 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <form method="post" action="{% url 'freekassa_payment_system_status_url' %}">
+                        <form method="post" action="{% url 'freekassa_payment_system_url' %}">
                             {% csrf_token %}
                             {% for field in form %}
-                            <div class="form-group">
-                                <p>{{ field }}</p>
-                                <button type="submit" class="btn btn-outline-success">Пополнить</button>
-                            </div>
+                                <div class="form-group">
+                                    Введите сумму пополнения
+                                    {{ field }}
+                                </div>
                             {% endfor %}
+                            <button type="submit" class="btn btn-outline-success">Пополнить</button>
                         </form>
                     </div>
                 </div>
