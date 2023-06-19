@@ -41,11 +41,12 @@ class FreeKassaPaymentSystem(View):
 
 class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
-        user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
-        order_amount = f'{user_payment.amount}'
+        # user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
+        # order_amount = f'{user_payment.amount}'
+        order_amount = '111'
         merchant_id = '35421'
         currency = 'RUB'
-        order_id = f'{request.user}'
+        order_id = f'{request.user.id}'
         secret_word = 'wrRI*,Y}nau9Z4O'
         sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
         context = {
