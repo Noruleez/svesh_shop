@@ -2,7 +2,7 @@ from django import forms
 from .models import *
 
 
-class PaymentForm(forms.Form):
+class PaymentForm(forms.ModelForm):
     class Meta:
         model = FreeKassaPaymentStatus
         fields = ['amount']
