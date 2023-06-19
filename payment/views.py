@@ -29,7 +29,20 @@ class ChoosePaymentSystem(View):
 
 class FreeKassaPaymentSystem(View):
     def get(self, request):
-        order_amount = '100'
+        return render(request, 'payment/freekassa_payment_system_status.html')
+    def post(self, request):
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.user = request.user
+            new_form.status = 'WaitPayment'
+            new_form.save()
+
+
+class FreeKassaPaymentSystemStatus(View):
+    def get(self, request):
+        user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
+        order_amount = f'{user_payment.amount}'
         merchant_id = '35421'
         currency = 'RUB'
         order_id = f'{request.user}'
@@ -42,4 +55,4 @@ class FreeKassaPaymentSystem(View):
             's': sign,
             'currency': currency
         }
-        return render(request, 'payment/freekassa_payment_system.html', context)
+        return render(request, 'payment/freekassa_payment_system_status.html_status', context)
