@@ -58,5 +58,3 @@ class FreeKassaPaymentSystemStatus(View):
             'currency': currency
         }
         return render(request, 'payment/freekassa_payment_system_status.html', context)
-    def get(self, request):
-        return render(request, 'payment/freekassa_payment_system_status.html')
