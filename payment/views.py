@@ -40,21 +40,21 @@ class FreeKassaPaymentSystem(View):
         # return render(request, 'shop/product_detail.html', context={'form': bound_purchase_form})
 
 class FreeKassaPaymentSystemStatus(View):
-    # def get(self, request):
-    #     user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
-    #     order_amount = f'{user_payment.amount}'
-    #     merchant_id = '35421'
-    #     currency = 'RUB'
-    #     order_id = f'{request.user}'
-    #     secret_word = 'wrRI*,Y}nau9Z4O'
-    #     sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
-    #     context = {
-    #         'm': merchant_id,
-    #         'oa': order_amount,
-    #         'o': order_id,
-    #         's': sign,
-    #         'currency': currency
-    #     }
-    #     return render(request, 'payment/freekassa_payment_system_status.html', context)
+    def get(self, request):
+        user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
+        order_amount = f'{user_payment.amount}'
+        merchant_id = '35421'
+        currency = 'RUB'
+        order_id = f'{request.user}'
+        secret_word = 'wrRI*,Y}nau9Z4O'
+        sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
+        context = {
+            'm': merchant_id,
+            'oa': order_amount,
+            'o': order_id,
+            's': sign,
+            'currency': currency
+        }
+        return render(request, 'payment/freekassa_payment_system_status.html', context)
     def get(self, request):
         return render(request, 'payment/freekassa_payment_system_status.html')
