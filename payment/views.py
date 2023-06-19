@@ -32,11 +32,11 @@ class FreeKassaPaymentSystem(View):
         form = PaymentForm()
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
     def post(self, request):
-        form = PaymentForm(request.POST)
-        if form.is_valid():
-            new_form = form.save(commit=False)
+        bound_form = PaymentForm(request.POST)
+        if bound_form.is_valid():
+            new_form = bound_form.save(commit=False)
             FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-        return render(request, 'payment/freekassa_payment_system_status.html', context={'form': form})
+        return redirect('/payment/freekassa-payment-system-status/')
         # return render(request, 'shop/product_detail.html', context={'form': bound_purchase_form})
 
 class FreeKassaPaymentSystemStatus(View):

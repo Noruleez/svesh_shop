@@ -10,12 +10,12 @@
             <div class="card mt-5">
                 <div class="card-header">
                     <div class="text-center">
-                        <h3>FreeKassa</h3>
+                        <h3>FreeKassa Оплата</h3>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="text-center">
-                        <form method="post" action="{% url 'freekassa_payment_system_url' %}">
+                        <form method="post" action="{% url 'freekassa_payment_system_status_url' %}">
                             {% csrf_token %}
                             {{ form.amount }}
 <!--                                <button type="submit" class="btn btn-outline-success">Пополнить</button>-->
