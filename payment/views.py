@@ -46,7 +46,8 @@ class FreeKassaPaymentSystemStatus(View):
         order_amount = '111'
         merchant_id = '35421'
         currency = 'RUB'
-        order_id = f'{request.user.id}'
+        # order_id = f'{request.user.id}'
+        order_id = '11'
         secret_word = 'wrRI*,Y}nau9Z4O'
         sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
         context = {
