@@ -17,9 +17,12 @@
                     <div class="text-center">
                         <form method="post" action="{% url 'freekassa_payment_system_status_url' %}">
                             {% csrf_token %}
-                            {{ form.amount }}
-<!--                                <button type="submit" class="btn btn-outline-success">Пополнить</button>-->
-                            <input type='submit' name='pay' value='Оплатить'>
+                            {% for field in form %}
+                            <div class="form-group">
+                                <p>{{ field }}</p>
+                                <button type="submit" class="btn btn-outline-success">Пополнить</button>
+                            </div>
+                            {% endfor %}
                         </form>
                     </div>
                 </div>
