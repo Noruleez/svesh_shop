@@ -7,30 +7,32 @@
 {% block content %}
     <div class="container">
         <div class="col">
-            <div class="card mt-5">
-                <div class="card-header">
-                    <div class="text-center">
-                        <h3>FreeKassa Ожидание оплаты</h3>
+            {% if request.user.is_authenticated %}
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <div class="text-center">
+                            <h3>FreeKassa Ожидание оплаты</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <p>Сумма пополнения {{oa}} руб.</p>
+                            <form method='get' action='https://pay.freekassa.ru/'>
+                                <input type='hidden' name='m' value={{m}}>
+                                <input type='hidden' name='oa' value={{oa}}>
+                                <input type='hidden' name='o' value={{o}}>
+                                <input type='hidden' name='s' value={{s}}>
+                                <input type='hidden' name='currency' value={{currency}}>
+                                <input type='hidden' name='em' value={{user.email}}>
+                                <input type='hidden' name='lang' value='ru'>
+                                <input type='submit' name='pay' value='Оплатить'>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-footer">
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <p>Сумма пополнения {{oa}} руб.</p>
-                        <form method='get' action='https://pay.freekassa.ru/'>
-                            <input type='hidden' name='m' value={{m}}>
-                            <input type='hidden' name='oa' value={{oa}}>
-                            <input type='hidden' name='o' value={{o}}>
-                            <input type='hidden' name='s' value={{s}}>
-                            <input type='hidden' name='currency' value={{currency}}>
-                            <input type='hidden' name='em' value={{user.email}}>
-                            <input type='hidden' name='lang' value='ru'>
-                            <input type='submit' name='pay' value='Оплатить'>
-                        </form>
-                    </div>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

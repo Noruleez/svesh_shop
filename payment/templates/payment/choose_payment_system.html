@@ -7,20 +7,22 @@
 {% block content %}
     <div class="container">
         <div class="col">
-            <div class="card mt-5">
-                <div class="card-header">
-                    <div class="text-center">
-                        <h3>Выберите платежную систему для пополнения баланса</h3>
+            {% if request.user.is_authenticated %}
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <div class="text-center">
+                            <h3>Выберите платежную систему для пополнения баланса</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <a href="{% url 'freekassa_payment_system_url' %}" class="btn btn-outline-success">FreeKassa</a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <a href="{% url 'freekassa_payment_system_url' %}" class="btn btn-outline-success">FreeKassa</a>
-                    </div>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

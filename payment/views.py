@@ -48,6 +48,8 @@ class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
         if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status = 'WaitPayment')) != 1:
             return redirect('/')
+        elif len(FreeKassaPaymentStatus.objects.filter(user=request.user, status = 'WaitPayment')) != 1:
+            return redirect('/')
         user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
         order_amount = f'{user_payment.amount}'
         merchant_id = '35421'

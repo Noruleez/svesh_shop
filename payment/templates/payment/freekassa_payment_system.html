@@ -7,29 +7,31 @@
 {% block content %}
     <div class="container">
         <div class="col">
-            <div class="card mt-5">
-                <div class="card-header">
-                    <div class="text-center">
-                        <h3>FreeKassa Оплата</h3>
+            {% if request.user.is_authenticated %}
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <div class="text-center">
+                            <h3>FreeKassa Оплата</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <form method="post" action="{% url 'freekassa_payment_system_url' %}">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        Введите сумму пополнения
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-outline-success">Пополнить</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-footer">
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <form method="post" action="{% url 'freekassa_payment_system_url' %}">
-                            {% csrf_token %}
-                            {% for field in form %}
-                                <div class="form-group">
-                                    Введите сумму пополнения
-                                    {{ field }}
-                                </div>
-                            {% endfor %}
-                            <button type="submit" class="btn btn-outline-success">Пополнить</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="card-footer">
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
