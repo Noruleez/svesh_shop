@@ -35,9 +35,14 @@ class FreeKassaPaymentSystem(View):
         bound_form = PaymentForm(request.POST)
         if bound_form.is_valid():
             new_form = bound_form.save(commit=False)
-            FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            if len(FreeKassaPaymentStatus.objects.filter(user=request.user)) == 1:
+                already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user)
+                already_exists_payment.delete()
+                FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            else:
+                FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
         return redirect('/payment/freekassa-payment-system-status/')
-        # return render(request, 'shop/product_detail.html', context={'form': bound_purchase_form})
+
 
 class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
