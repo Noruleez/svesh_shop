@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import AnonymousUser
 from .forms import *
 import hashlib
 from hashlib import md5
@@ -46,9 +47,7 @@ class FreeKassaPaymentSystem(View):
 
 class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
-        if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status = 'WaitPayment')) != 1:
-            return redirect('/')
-        elif len(FreeKassaPaymentStatus.objects.filter(user=request.user, status = 'WaitPayment')) != 1:
+        if request.user.is_anonymous or len(FreeKassaPaymentStatus.objects.filter(user=request.user, status = 'WaitPayment')) != 1:
             return redirect('/')
         user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status = 'WaitPayment')
         order_amount = f'{user_payment.amount}'
