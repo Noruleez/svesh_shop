@@ -13,9 +13,16 @@ class Notify(View):
         return render(request, 'payment/notify.html')
 
 
+
+
 class Success(View):
     def get(self, request):
-        return render(request, 'payment/success.html')
+        order_id = request.GET.get("MERCHANT_ORDER_ID")
+        return render(request, 'payment/success.html', context={'order_id': order_id})
+    def post(self, request):
+        p = request.POST
+        print(p)
+        return render(request, 'payment/success.html', context={'p': p})
 
 
 class Fail(View):
@@ -26,6 +33,7 @@ class Fail(View):
 class ChoosePaymentSystem(View):
     def get(self, request):
         return render(request, 'payment/choose_payment_system.html')
+    
 
 
 class FreeKassaPaymentSystem(View):
