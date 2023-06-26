@@ -18,6 +18,7 @@ class Notify(View):
 class Success(View):
     def get(self, request):
         order_id = request.GET.get("MERCHANT_ORDER_ID")
+        FreeKassaPaymentStatus.objects.create(user=request.user, amount=1, status=f'{order_id}')
         return render(request, 'payment/success.html', context={'order_id': order_id})
     def post(self, request):
         p = request.POST
