@@ -162,4 +162,4 @@ APPEND_SLASH = False
 
 CSRF_COOKIE_DOMAIN = '.freekassa.ru'
 
-# CSRF_TRUSTED_ORIGINS = ['pay.freekassa.ru']
+CSRF_TRUSTED_ORIGINS = ['pay.freekassa.ru']

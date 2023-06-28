@@ -12,6 +12,7 @@
                 </div>
                 <div class="card-body">
                     <div class="text-center">
+                        {% csrf_token %}
                         <p class="card-text border-bottom">Оповещения об оплате</p>
                         <p> {{ p }} </p>
                     </div>
