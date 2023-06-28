@@ -10,11 +10,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
 
-@method_decorator(csrf_exempt)
+
 class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
 
+    @method_decorator(csrf_exempt)
     def post(self, request):
         p = request.POST
         return render(request, 'payment/notify.html', context={'p': p})
