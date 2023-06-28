@@ -13,7 +13,6 @@ class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
 
-    @csrf_exempt
     def post(self, request):
         p = request.POST
         return render(request, 'payment/notify.html', context={'p': p})
