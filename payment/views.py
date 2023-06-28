@@ -7,8 +7,10 @@ from .forms import *
 import hashlib
 from hashlib import md5
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(csrf_exempt)
 class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
