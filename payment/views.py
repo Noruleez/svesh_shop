@@ -11,18 +11,19 @@ from hashlib import md5
 class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
-
-
+    def post(self, request):
+        p = request.POST
+        return render(request, 'payment/notify.html', context={'p': p})
 
 
 class Success(View):
     def get(self, request):
         order_id = request.GET.get("MERCHANT_ORDER_ID")
         return render(request, 'payment/success.html', context={'order_id': order_id})
-    def post(self, request):
-        p = request.POST
-        print(p)
-        return render(request, 'payment/success.html', context={'p': p})
+    # def post(self, request):
+    #     p = request.POST
+    #     print(p)
+    #     return render(request, 'payment/success.html', context={'p': p})
 
 
 class Fail(View):
