@@ -160,4 +160,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 APPEND_SLASH = False
 
-CSRF_TRUSTED_ORIGINS = ['https://pay.freekassa.ru/']
+CSRF_COOKIE_DOMAIN = '.freekassa.ru'
