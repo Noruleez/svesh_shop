@@ -15,8 +15,6 @@ from django.views.decorators.csrf import requires_csrf_token
 class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
-
-    @method_decorator(requires_csrf_token)
     def post(self, request):
         p = request.POST
         return render(request, 'payment/notify.html', context={'p': p})
