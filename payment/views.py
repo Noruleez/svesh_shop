@@ -6,11 +6,13 @@ from django.contrib.auth.models import AnonymousUser
 from .forms import *
 import hashlib
 from hashlib import md5
+from django.views.decorators.csrf import csrf_exempt
 
 
 class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
+    @csrf_exempt
     def post(self, request):
         p = request.POST
         return render(request, 'payment/notify.html', context={'p': p})
