@@ -8,6 +8,7 @@ import hashlib
 from hashlib import md5
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import requires_csrf_token
 
 
 
@@ -15,7 +16,7 @@ class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
 
-    @method_decorator(csrf_exempt)
+    @method_decorator(requires_csrf_token)
     def post(self, request):
         p = request.POST
         return render(request, 'payment/notify.html', context={'p': p})
