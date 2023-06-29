@@ -25,8 +25,9 @@ class Success(View):
     def get(self, request):
         order_id = request.GET.get("MERCHANT_ORDER_ID")
         user_email = request.user.email
-        if user_email == order_id:
-            # and FreeKassaPaymentStatus.objects.filter(user=request.user) == 1:
+        if request.user.is_anonymous:
+            return redirect('/')
+        if user_email == order_id and FreeKassaPaymentStatus.objects.filter(user=request.user) == 1:
             payment = FreeKassaPaymentStatus.objects.get(user=request.user)
             payment.status = 'SuccessPayment'
             payment.save()
