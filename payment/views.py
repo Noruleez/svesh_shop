@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AnonymousUser
-from ..shop.models import *
+from shop.models import *
 from .forms import *
 import hashlib
 from hashlib import md5
