@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import View
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AnonymousUser
+from .models import *
 from shop.models import *
 from .forms import *
 import hashlib
@@ -23,14 +24,15 @@ class Notify(View):
 class Success(View):
     def get(self, request):
         order_id = request.GET.get("MERCHANT_ORDER_ID")
-        if FreeKassaPaymentStatus.objects.filter(user=request.user) == 1:
+        user_email = request.user.email
+        if user_email == order_id:
+            # and FreeKassaPaymentStatus.objects.filter(user=request.user) == 1:
             payment = FreeKassaPaymentStatus.objects.get(user=request.user)
             payment.status = 'SuccessPayment'
             payment.save()
             balance = Balance.objects.get(user=request.user)
             balance.amount = balance.amount + payment.amount
             balance.save()
-
         else:
             return redirect('/payment/fail')
         return render(request, 'payment/success.html', context={'order_id': order_id})
