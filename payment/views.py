@@ -15,8 +15,8 @@ class Notify(View):
     def get(self, request):
         return render(request, 'payment/notify.html')
     def post(self, request):
-        p = request.POST
-        return render(request, 'payment/notify.html', context={'p': p})
+        order_id = request.POST.post("MERCHANT_ORDER_ID")
+        return render(request, 'payment/notify.html', context={'order_id': order_id})
 
 
 class Success(View):
