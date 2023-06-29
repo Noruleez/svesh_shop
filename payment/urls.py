@@ -4,7 +4,7 @@ from .views import *
 
 urlpatterns = [
 
-    path(r'^notify\w*', Notify.as_view(), name='notify_url'),
+    re_path(r'^notify\w*', Notify.as_view(), name='notify_url'),
     re_path(r'^success\w*', Success.as_view(), name='success_url'),
     path('fail/', Fail.as_view(), name='fail_url'),
     path('choose-payment-system/', ChoosePaymentSystem.as_view(), name = 'choose_payment_system_url'),
