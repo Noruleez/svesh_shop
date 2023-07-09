@@ -8,6 +8,21 @@ from .forms import PurchaseForm
 from .utils import ObjectDetailMixin
 
 
+class DocOfferAgreement(View):
+    def get(self, request):
+        return render(request, 'shop/doc_offer_agreement.html')
+
+
+class DocPaymentBack(View):
+    def get(self, request):
+        return render(request, 'shop/doc_payment_back.html')
+
+
+class DocPrivacyPolicy(View):
+    def get(self, request):
+        return render(request, 'shop/doc_privacy_policy.html')
+
+
 class Rules(View):
     def get(self, request):
         return render(request, 'shop/rules.html')

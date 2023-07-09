@@ -19,6 +19,9 @@ urlpatterns = [
     path('balance/', BalanceDetail.as_view(), name='balance_url'),
 
     path('tdata-info/', TdataInfo.as_view(), name='tdata_info_url'),
-    path('rules/', Rules.as_view(), name='rules_url')
+    path('rules/', Rules.as_view(), name='rules_url'),
+    path('doc-offer-agreement/', DocOfferAgreement.as_view(), name='doc_offer_agreement_url'),
+    path('doc-payment-back/', DocPaymentBack.as_view(), name='doc_payment_back_url'),
+    path('doc_privacy_policy/', DocPrivacyPolicy.as_view(), name='doc_privacy_policy_url'),
 
 ]
