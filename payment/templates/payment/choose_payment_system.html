@@ -1,5 +1,5 @@
 {% extends 'shop/base_shop.html' %}
-{% load account %}
+
 {% block title %}
     {{ block.super }}
 {% endblock %}
@@ -11,44 +11,15 @@
                 <div class="card mt-5">
                     <div class="card-header">
                         <div class="text-center">
-                            <h3>FreeKassa Оплата</h3>
+                            <h3>Выберите платежную систему для пополнения баланса</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <form method="post" action="{% url 'freekassa_payment_system_url' %}">
-                                {% csrf_token %}
-                                {% for field in form %}
-                                    <div class="form-group">
-                                        Введите сумму пополнения
-                                        {{ field }}
-                                    </div>
-                                {% endfor %}
-                                <button type="submit" class="btn btn-outline-success">Пополнить</button>
-                            </form>
+                            <a href="{% url 'freekassa_payment_system_url' %}" class="btn btn-outline-success">FreeKassa</a>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                    </div>
-                </div>
-                <div class="card mt-5">
-                    <div class="card-header">
                         <div class="text-center">
-                            <h3>Aaio Оплата</h3>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            <form method="post" action="{% url 'aaio_payment_system_url' %}">
-                                {% csrf_token %}
-                                {% for field in form %}
-                                    <div class="form-group">
-                                        Введите сумму пополнения
-                                        {{ field }}
-                                    </div>
-                                {% endfor %}
-                                <button type="submit" class="btn btn-outline-success">Пополнить</button>
-                            </form>
+                            <a href="{% url 'aaio_payment_system_url' %}" class="btn btn-outline-success">FreeKassa</a>
                         </div>
                     </div>
                     <div class="card-footer">
