@@ -13,13 +13,20 @@ from django.utils.decorators import method_decorator
 from urllib.parse import urlencode
 
 
-@method_decorator(csrf_exempt, name='dispatch')
-class Notify(View):
+class ChoosePaymentSystem(View):
     def get(self, request):
-        return render(request, 'payment/notify.html')
+        return render(request, 'payment/choose_payment_system.html')
+
+
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class FreeKassaNotify(View):
+    def get(self, request):
+        return render(request, 'payment/freekassa_notify.html')
     def post(self, request):
         form_data = request.POST
-        return render(request, 'payment/notify.html', context={'form_data': form_data})
+        return render(request, 'payment/freekassa_notify.html', context={'form_data': form_data})
 
 
 class FreeKassaSuccess(View):
@@ -40,32 +47,9 @@ class FreeKassaSuccess(View):
         return render(request, 'payment/freekassa_success.html', context={'order_id': order_id})
 
 
-class AaioSuccess(View):
+class FreeKassaFail(View):
     def get(self, request):
-        order_id = request.GET.get("MERCHANT_ORDER_ID")
-        user_email = request.user.email
-        if request.user.is_anonymous:
-            return redirect('/')
-        if user_email == order_id and AaioPaymentStatus.objects.filter(user=request.user) == 1:
-            payment = AaioPaymentStatus.objects.get(user=request.user)
-            payment.status = 'SuccessPayment'
-            payment.save()
-            balance = Balance.objects.get(user=request.user)
-            balance.amount = balance.amount + payment.amount
-            balance.save()
-        else:
-            return redirect('/payment/fail')
-        return render(request, 'payment/aaio_success.html', context={'order_id': order_id})
-
-
-class Fail(View):
-    def get(self, request):
-        return render(request, 'payment/fail.html')
-
-
-class ChoosePaymentSystem(View):
-    def get(self, request):
-        return render(request, 'payment/choose_payment_system.html')
+        return render(request, 'payment/freekassa_fail.html')
 
 
 class FreeKassaPaymentSystem(View):
@@ -104,6 +88,41 @@ class FreeKassaPaymentSystemStatus(View):
             'currency': currency
         }
         return render(request, 'payment/freekassa_payment_system_status.html', context)
+
+
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AaioNotify(View):
+    def get(self, request):
+        return render(request, 'payment/aaio_notify.html')
+    def post(self, request):
+        form_data = request.POST
+        return render(request, 'payment/aaio_notify.html', context={'form_data': form_data})
+
+
+class AaioSuccess(View):
+    pass
+#     def get(self, request):
+#         order_id = request.GET.get("MERCHANT_ORDER_ID")
+#         user_email = request.user.email
+#         if request.user.is_anonymous:
+#             return redirect('/')
+#         if user_email == order_id and AaioPaymentStatus.objects.filter(user=request.user) == 1:
+#             payment = AaioPaymentStatus.objects.get(user=request.user)
+#             payment.status = 'SuccessPayment'
+#             payment.save()
+#             balance = Balance.objects.get(user=request.user)
+#             balance.amount = balance.amount + payment.amount
+#             balance.save()
+#         else:
+#             return redirect('/payment/fail')
+#         return render(request, 'payment/aaio_success.html', context={'order_id': order_id})
+
+
+class AaioFail(View):
+    def get(self, request):
+        return render(request, 'payment/aaio_fail.html')
 
 
 class AaioPaymentSystem(View):
