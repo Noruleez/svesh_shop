@@ -112,7 +112,7 @@ class AaioNotify(View):
         #     else:
         #         return redirect('/payment/aaio-fail/')
         order_id = request.POST.get("order_id")
-        if order_id = '2' or 2:
+        if order_id == '2' or order_id == 2:
             payment = AaioPaymentStatus.objects.get(user=2)
             balance = Balance.objects.get(user=2)
             balance.amount = balance.amount + payment.amount
