@@ -141,8 +141,7 @@ class AaioPaymentSystemStatus(View):
         amount = user_payment.amount  # Сумма к оплате
         currency = 'RUB'  # Валюта заказа
         secret = 'd8122ab1c6c4cdc29e9f1cb604bafc4a'  # Секретный ключ №1
-        order_id = '1'
-            #f'{user_payment.user}'  # Идентификатор заказа в Вашей системе
+        order_id = f'{user_payment.user.id}'  # Идентификатор заказа в Вашей системе
         desc = 'Order Payment'  # Описание заказа
         lang = 'ru'  # Язык формы
 
