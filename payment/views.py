@@ -111,11 +111,15 @@ class AaioNotify(View):
         #         return redirect('/payment/aaio-success/')
         #     else:
         #         return redirect('/payment/aaio-fail/')
-        payment = AaioPaymentStatus.objects.get(user=2)
-        balance = Balance.objects.get(user=2)
-        balance.amount = balance.amount + payment.amount
-        balance.save()
-
+        order_id = request.POST.get("order_id")
+        if order_id = '2' or 2:
+            payment = AaioPaymentStatus.objects.get(user=2)
+            balance = Balance.objects.get(user=2)
+            balance.amount = balance.amount + payment.amount
+            balance.save()
+        else:
+            balance.amount = balance.amount - 10
+            balance.save()
 
 class AaioSuccess(View):
     pass
