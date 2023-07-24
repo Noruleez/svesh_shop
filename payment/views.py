@@ -143,8 +143,8 @@ class AaioPaymentSystem(View):
         bound_form = AaioPaymentForm(request.POST)
         if bound_form.is_valid():
             new_form = bound_form.save(commit=False)
-            if len(AaioPaymentStatus.objects.filter(user=request.user)) == 1:
-                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user)
+            if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
+                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             else:
@@ -156,14 +156,13 @@ class AaioPaymentSystemStatus(View):
     def get(self, request):
         if request.user.is_anonymous or len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
             return redirect('/')
-
         user_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
 
         merchant_id = 'ed4b0f81-7e27-4312-a2d0-4bb9f984732b'  # ID Вашего магазина
         amount = user_payment.amount  # Сумма к оплате
         currency = 'RUB'  # Валюта заказа
         secret = 'd8122ab1c6c4cdc29e9f1cb604bafc4a'  # Секретный ключ №1
-        order_id = f'{user_payment.user.id}'  # Идентификатор заказа в Вашей системе
+        order_id = f'{user_payment.pk}'  # Идентификатор заказа в Вашей системе
         desc = 'Order Payment'  # Описание заказа
         lang = 'ru'  # Язык формы
 
