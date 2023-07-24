@@ -103,21 +103,9 @@ class AaioNotify(View):
 
 class AaioSuccess(View):
     pass
-#     def get(self, request):
-#         order_id = request.GET.get("MERCHANT_ORDER_ID")
-#         user_email = request.user.email
-#         if request.user.is_anonymous:
-#             return redirect('/')
-#         if user_email == order_id and AaioPaymentStatus.objects.filter(user=request.user) == 1:
-#             payment = AaioPaymentStatus.objects.get(user=request.user)
-#             payment.status = 'SuccessPayment'
-#             payment.save()
-#             balance = Balance.objects.get(user=request.user)
-#             balance.amount = balance.amount + payment.amount
-#             balance.save()
-#         else:
-#             return redirect('/payment/fail')
-#         return render(request, 'payment/aaio_success.html', context={'order_id': order_id})
+    def get(self, request):
+        order_id = request.GET.get("order_id")
+        return render(request, 'payment/aaio_success.html', context={'order_id': order_id})
 
 
 class AaioFail(View):
@@ -153,7 +141,8 @@ class AaioPaymentSystemStatus(View):
         amount = user_payment.amount  # Сумма к оплате
         currency = 'RUB'  # Валюта заказа
         secret = 'd8122ab1c6c4cdc29e9f1cb604bafc4a'  # Секретный ключ №1
-        order_id = f'{user_payment.user}'  # Идентификатор заказа в Вашей системе
+        order_id = 1
+            #f'{user_payment.user}'  # Идентификатор заказа в Вашей системе
         desc = 'Order Payment'  # Описание заказа
         lang = 'ru'  # Язык формы
 
