@@ -97,8 +97,20 @@ class AaioNotify(View):
     def get(self, request):
         return render(request, 'payment/aaio_notify.html')
     def post(self, request):
-        form_data = request.POST
-        return render(request, 'payment/aaio_notify.html', context={'form_data': form_data})
+        order_id = request.GET.get("order_id")
+        order_amount = request.GET.get("amount")
+        user_id = User.objects.get(id=int(order_id))
+        if user_id == order_id and AaioPaymentStatus.objects.filter(user=user_id) == 1:
+            payment = AaioPaymentStatus.objects.get(user=user_id)
+            if str(payment.amount) == order_amount:
+                payment.status = 'SuccessPayment'
+                payment.save()
+                balance = Balance.objects.get(user=user_id)
+                balance.amount = balance.amount + payment.amount
+                balance.save()
+                return redirect('/payment/aaio-success/')
+            else:
+                return redirect('/payment/aaio-fail/')
 
 
 class AaioSuccess(View):
