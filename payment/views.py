@@ -97,27 +97,33 @@ class AaioNotify(View):
     def get(self, request):
         return render(request, 'payment/aaio_notify.html')
     def post(self, request):
-        order_id = request.GET.get("order_id")
-        order_amount = request.GET.get("amount")
-        user_id = User.objects.get(id=int(order_id))
-        if user_id == order_id and AaioPaymentStatus.objects.filter(user=user_id) == 1:
-            payment = AaioPaymentStatus.objects.get(user=user_id)
-            if str(payment.amount) == order_amount:
-                payment.status = 'SuccessPayment'
-                payment.save()
-                balance = Balance.objects.get(user=user_id)
-                balance.amount = balance.amount + payment.amount
-                balance.save()
-                return redirect('/payment/aaio-success/')
-            else:
-                return redirect('/payment/aaio-fail/')
+        # order_id = request.GET.get("order_id")
+        # order_amount = request.GET.get("amount")
+        # user_id = User.objects.get(id=int(order_id))
+        # if user_id == order_id and AaioPaymentStatus.objects.filter(user=user_id) == 1:
+        #     payment = AaioPaymentStatus.objects.get(user=user_id)
+        #     if str(payment.amount) == order_amount:
+        #         payment.status = 'SuccessPayment'
+        #         payment.save()
+        #         balance = Balance.objects.get(user=user_id)
+        #         balance.amount = balance.amount + payment.amount
+        #         balance.save()
+        #         return redirect('/payment/aaio-success/')
+        #     else:
+        #         return redirect('/payment/aaio-fail/')
+        payment = AaioPaymentStatus.objects.get(user=2)
+        balance = Balance.objects.get(user=2)
+        balance.amount = balance.amount + payment.amount
+        balance.save()
 
 
 class AaioSuccess(View):
     pass
     def get(self, request):
         order_id = request.GET.get("order_id")
-        return render(request, 'payment/aaio_success.html', context={'order_id': order_id})
+        user_email = (User.objects.get(id=order_id)).email
+        amount = request.GET.get("amount")
+        return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
 
 
 class AaioFail(View):
