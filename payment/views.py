@@ -134,6 +134,7 @@ class AaioNotify(View):
             user_balance.save()
             payment.status = "SuccessPayment"
             payment.save()
+        return render(request, 'payment/aaio_notify.html')
 
 
 class AaioSuccess(View):
