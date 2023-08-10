@@ -35,6 +35,7 @@ class FreeKassaSuccess(View):
         user_email = request.user.email
         if request.user.is_anonymous:
             return redirect('/')
+        #Тестовый вариант - get, поменять на post
         if user_email == order_id and FreeKassaPaymentStatus.objects.filter(user=request.user) == 1:
             payment = FreeKassaPaymentStatus.objects.get(user=request.user)
             payment.status = 'SuccessPayment'
@@ -111,15 +112,28 @@ class AaioNotify(View):
         #         return redirect('/payment/aaio-success/')
         #     else:
         #         return redirect('/payment/aaio-fail/')
+
+        # order_id = request.POST.get("order_id")
+        # if order_id == '2' or order_id == 2:
+        #     payment = AaioPaymentStatus.objects.get(user=2)
+        #     balance = Balance.objects.get(user=2)
+        #     balance.amount = balance.amount + payment.amount
+        #     balance.save()
+        # else:
+        #     balance.amount = balance.amount - 10
+        #     balance.save()
+
         order_id = request.POST.get("order_id")
-        if order_id == '2' or order_id == 2:
-            payment = AaioPaymentStatus.objects.get(user=2)
-            balance = Balance.objects.get(user=2)
-            balance.amount = balance.amount + payment.amount
-            balance.save()
-        else:
-            balance.amount = balance.amount - 10
-            balance.save()
+        amount = request.POST.get("amount")
+        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        user_id = payment.user.id
+
+        if amount == payment.amount:
+            user_balance = Balance.objects.get(user=user_id)
+            user_balance.amount = user_balance + amount
+            user_balance.save()
+            payment.status = "SuccessPayment"
+            payment.save()
 
 
 class AaioSuccess(View):
