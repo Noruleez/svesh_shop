@@ -140,7 +140,9 @@ class AaioSuccess(View):
     pass
     def get(self, request):
         order_id = request.GET.get("order_id")
-        user_email = (User.objects.get(id=order_id)).email
+        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        user_id = payment.user.id
+        user_email = (User.objects.get(id=user_id)).email
         amount = request.GET.get("amount")
         return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
 
