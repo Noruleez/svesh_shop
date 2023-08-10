@@ -125,10 +125,10 @@ class AaioNotify(View):
 class AaioSuccess(View):
     pass
     def get(self, request):
-        order_id = int(request.GET.get("order_id"))
-        user_email = (User.objects.get(id=order_id)).email
+        order_id = request.GET.get("order_id")
+        #user_email = (User.objects.get(id=order_id)).email
         amount = request.GET.get("amount")
-        return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
+        return render(request, 'payment/aaio_success.html', context={'user_email': order_id, 'amount': amount})
 
 
 class AaioFail(View):
