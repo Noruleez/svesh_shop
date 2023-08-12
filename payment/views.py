@@ -115,7 +115,7 @@ class AaioNotify(View):
         payment = AaioPaymentStatus.objects.get(pk=int(order_id))
         user_id = payment.user.id
         user_balance = Balance.objects.get(user=user_id)
-        user_balance.amount = user_balance.amount + amount
+        user_balance.amount = user_balance.amount + Decimal(amount)
         user_balance.save()
         payment.status = "SuccessPayment"
         payment.save()
