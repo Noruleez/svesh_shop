@@ -100,10 +100,12 @@ class AaioNotify(View):
     def post(self, request):
 
 
+
+        order_id = request.POST["order_id"]
+        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
         amount = request.POST["amount"]
-        user_balance = Balance.objects.get(user=2)
-        user_balance.amount = int(amount)
-        user_balance.save()
+        payment.status = f'Success +{amount=} rub.'
+        payment.save()
 
 
         # order_id = request.POST.get("order_id")
