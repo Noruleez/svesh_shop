@@ -14,6 +14,11 @@
                     <div class="text-center">
                         <p class="card-text border-bottom">Оповещения об оплате</p>
                         <p> {{ form_data }} </p>
+                        
+                        <form action="{% 'aaio_notify_url' %}" method="post">
+                            <input id="your_name" type="text" name="your_name" value="{{ form-data }}">
+                        </form>
+                        
                     </div>
                 </div>
                 <div class="card-footer">

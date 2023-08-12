@@ -98,42 +98,27 @@ class AaioNotify(View):
     def get(self, request):
         return render(request, 'payment/aaio_notify.html')
     def post(self, request):
-        # order_id = request.GET.get("order_id")
-        # order_amount = request.GET.get("amount")
-        # user_id = User.objects.get(id=int(order_id))
-        # if user_id == order_id and AaioPaymentStatus.objects.filter(user=user_id) == 1:
-        #     payment = AaioPaymentStatus.objects.get(user=user_id)
-        #     if str(payment.amount) == order_amount:
-        #         payment.status = 'SuccessPayment'
-        #         payment.save()
-        #         balance = Balance.objects.get(user=user_id)
-        #         balance.amount = balance.amount + payment.amount
-        #         balance.save()
-        #         return redirect('/payment/aaio-success/')
-        #     else:
-        #         return redirect('/payment/aaio-fail/')
+
+
+        amount = request.POST["amount"]
+        user_balance = Balance.objects.get(user=2)
+        user_balance.amount = user_balance + amount
+        user_balance.save()
+
 
         # order_id = request.POST.get("order_id")
-        # if order_id == '2' or order_id == 2:
-        #     payment = AaioPaymentStatus.objects.get(user=2)
-        #     balance = Balance.objects.get(user=2)
-        #     balance.amount = balance.amount + payment.amount
-        #     balance.save()
-        # else:
-        #     balance.amount = balance.amount - 10
-        #     balance.save()
+        # amount = request.POST.get("amount")
+        # payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        # user_id = payment.user.id
+        #
+        # if amount == payment.amount:
+        #     user_balance = Balance.objects.get(user=user_id)
+        #     user_balance.amount = user_balance + amount
+        #     user_balance.save()
+        #     payment.status = "SuccessPayment"
+        #     payment.save()
 
-        order_id = request.POST.get("order_id")
-        amount = request.POST.get("amount")
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
 
-        if amount == payment.amount:
-            user_balance = Balance.objects.get(user=user_id)
-            user_balance.amount = user_balance + amount
-            user_balance.save()
-            payment.status = "SuccessPayment"
-            payment.save()
         return render(request, 'payment/aaio_notify.html')
 
 
