@@ -102,7 +102,7 @@ class AaioNotify(View):
 
         amount = request.POST["amount"]
         user_balance = Balance.objects.get(user=2)
-        user_balance.amount = user_balance + amount
+        user_balance.amount = user_balance.amount + amount
         user_balance.save()
 
 
