@@ -114,13 +114,11 @@ class AaioNotify(View):
         amount = request.POST["amount"]
         payment = AaioPaymentStatus.objects.get(pk=int(order_id))
         user_id = payment.user.id
-
-        if amount == payment.amount:
-            user_balance = Balance.objects.get(user=user_id)
-            user_balance.amount = user_balance + amount
-            user_balance.save()
-            payment.status = "SuccessPayment"
-            payment.save()
+        user_balance = Balance.objects.get(user=user_id)
+        user_balance.amount = user_balance.amount + amount
+        user_balance.save()
+        payment.status = "SuccessPayment"
+        payment.save()
 
 
         return render(request, 'payment/aaio_notify.html')
