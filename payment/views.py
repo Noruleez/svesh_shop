@@ -11,6 +11,7 @@ from hashlib import md5
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from urllib.parse import urlencode
+from decimal import *
 
 
 class ChoosePaymentSystem(View):
@@ -100,25 +101,26 @@ class AaioNotify(View):
     def post(self, request):
 
 
+        #
+        # order_id = request.POST["order_id"]
+        # payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        # amount = request.POST["amount"]
+        #
+        # payment.status = f'Success +{amount=} rub.'
+        # payment.save()
+
 
         order_id = request.POST["order_id"]
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
         amount = request.POST["amount"]
-        payment.status = f'Success +{amount=} rub.'
-        payment.save()
+        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        user_id = payment.user.id
 
-
-        # order_id = request.POST.get("order_id")
-        # amount = request.POST.get("amount")
-        # payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        # user_id = payment.user.id
-        #
-        # if amount == payment.amount:
-        #     user_balance = Balance.objects.get(user=user_id)
-        #     user_balance.amount = user_balance + amount
-        #     user_balance.save()
-        #     payment.status = "SuccessPayment"
-        #     payment.save()
+        if amount == payment.amount:
+            user_balance = Balance.objects.get(user=user_id)
+            user_balance.amount = user_balance + amount
+            user_balance.save()
+            payment.status = "SuccessPayment"
+            payment.save()
 
 
         return render(request, 'payment/aaio_notify.html')
