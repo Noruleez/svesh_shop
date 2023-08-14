@@ -19,8 +19,6 @@ class ChoosePaymentSystem(View):
         return render(request, 'payment/choose_payment_system.html')
 
 
-
-
 @method_decorator(csrf_exempt, name='dispatch')
 class FreeKassaNotify(View):
     def get(self, request):
@@ -92,24 +90,11 @@ class FreeKassaPaymentSystemStatus(View):
         return render(request, 'payment/freekassa_payment_system_status.html', context)
 
 
-
-
 @method_decorator(csrf_exempt, name='dispatch')
 class AaioNotify(View):
     def get(self, request):
         return render(request, 'payment/aaio_notify.html')
     def post(self, request):
-
-
-        #
-        # order_id = request.POST["order_id"]
-        # payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        # amount = request.POST["amount"]
-        #
-        # payment.status = f'Success +{amount=} rub.'
-        # payment.save()
-
-
         order_id = request.POST["order_id"]
         amount = request.POST["amount"]
         payment = AaioPaymentStatus.objects.get(pk=int(order_id))
@@ -119,8 +104,6 @@ class AaioNotify(View):
         user_balance.save()
         payment.status = "SuccessPayment"
         payment.save()
-
-
         return render(request, 'payment/aaio_notify.html')
 
 
@@ -148,6 +131,13 @@ class AaioPaymentSystem(View):
         bound_form = AaioPaymentForm(request.POST)
         if bound_form.is_valid():
             new_form = bound_form.save(commit=False)
+
+            # Check payment amount
+            if new_form.amount <= 0:
+                error_0_amount = 'Сумма пополнения не может быть равной нулю или отрицательной'
+                return render(request, 'payment/aaio_payment_system.html', context={'error_balance': error_0_amount,
+                                                                                    'form': new_form})
+
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
