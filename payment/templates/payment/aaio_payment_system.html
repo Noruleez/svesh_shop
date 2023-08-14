@@ -16,7 +16,8 @@
                     </div>
                     <div class="card-body">
                         <div class="text-center">
-                            <form method="post" action="{% url 'aaio_payment_system_url' %}">
+<!--                            <form method="post" action="{% url 'aaio_payment_system_url' %}">-->
+                                <form method="post" action="">
                                 {% csrf_token %}
                                 {% for field in form %}
                                     <div class="form-group">
