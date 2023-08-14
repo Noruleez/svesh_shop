@@ -134,8 +134,8 @@ class AaioPaymentSystem(View):
 
             # Check payment amount
             if new_form.amount <= 0:
-                error_payment_amount = 'Сумма пополнения не может быть равной нулю или отрицательной'
-                return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
+                error_balance = 'Сумма пополнения не может быть равной нулю или отрицательной'
+                return render(request, 'payment/aaio_payment_system.html', context={'error_balance': error_balance,
                                                                                     'form': bound_form})
 
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
