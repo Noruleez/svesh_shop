@@ -1,5 +1,5 @@
 #!/bin/bash
-export DJANGO_SETTINGS_MODULE=mysite.settings
+export DJANGO_SETTINGS_MODULE=accounts_shop.settings
 
 python links_add
 
