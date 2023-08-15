@@ -22,9 +22,8 @@ class AaioPaymentForm(forms.ModelForm):
         #     'amount': forms.TextInput(attrs={'class': 'form-control'}),
         # }
 
-        def clean_amount(self):
-            data = self.cleaned_data['amount']
-            if data:
-                raise ValidationError("TestError", code='test_error')
-            else:
-                return data
+    def clean_amount(self):
+        data = self.cleaned_data['amount']
+        if "fred@example.com" not in data:
+            raise ValidationError("You have forgotten about Fred!")
+        return data
