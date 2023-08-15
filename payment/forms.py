@@ -15,11 +15,11 @@ class FreeKassaPaymentForm(forms.ModelForm):
 
 
 class AaioPaymentForm(forms.ModelForm):
-    #amount = forms.IntegerField(error_messages={"invalid": "Введите целое положительное число"})
+    amount = forms.IntegerField(required=False, error_messages={'invalid': 'Enter a valid phone number'})
     # widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'})
     class Meta:
         model = AaioPaymentStatus
-        fields = ['amount'].validators = [MinValueValidator(1, message='Please enter a valid bid')]
+        fields = ['amount']
         # widgets = {
         #     'amount': forms.TextInput(attrs={'class': 'form-control'}),
         # }
