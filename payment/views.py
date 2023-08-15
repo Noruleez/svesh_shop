@@ -134,7 +134,7 @@ class AaioPaymentSystem(View):
 
             # Check integer amount
             def isint(s):
-                return s.isdigit() and int(s) == float(s)
+                return str(s).isdigit() and int(s) == float(s)
             if isint(new_form.amount):
                 amount = new_form.amount
             else:
