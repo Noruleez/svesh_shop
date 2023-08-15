@@ -22,8 +22,8 @@ class AaioPaymentForm(forms.ModelForm):
         #     'amount': forms.TextInput(attrs={'class': 'form-control'}),
         # }
 
-        def clean_amount(self, *args, **kwargs):
-            data = self.cleaned_data.['amount']
+        def clean_amount(self):
+            data = self.cleaned_data['amount']
             if data == 100:
                 raise forms.ValidationError('Не вводи 100')
             else:
