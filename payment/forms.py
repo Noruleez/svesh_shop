@@ -14,7 +14,7 @@ class FreeKassaPaymentForm(forms.ModelForm):
 
 class AaioPaymentForm(forms.ModelForm):
     amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}),
-                                error_messages={"required": "Please enter your name"})
+                                error_messages={"invalid": "Введите целое положительное число"})
 
     class Meta:
         model = AaioPaymentStatus
