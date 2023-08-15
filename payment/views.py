@@ -133,7 +133,7 @@ class AaioPaymentSystem(View):
             new_form = bound_form.save(commit=False)
 
             def is_int_and_positive(s):
-                return str(s).isdigit() and int(s) == float(s) and s <= 0
+                return str(s).isdigit() and int(s) == float(s) and s > 0
             if is_int_and_positive(new_form.amount):
                 amount = new_form.amount
             else:
