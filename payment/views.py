@@ -140,11 +140,11 @@ class AaioPaymentSystem(View):
 
             # Check integer amount
             def isint(s):
-                try:
-                    int(s)
-                    return int(s) == float(s)
-                except ValueError:
-                    return False
+                # try:
+                int(s)
+                return int(s) == float(s)
+                # except:
+                #     return False
 
             if not isint(new_form.amount):
                 error_payment_integer_amount = 'Введите целое число'
