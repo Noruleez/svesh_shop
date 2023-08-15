@@ -13,6 +13,8 @@ class FreeKassaPaymentForm(forms.ModelForm):
 
 
 class AaioPaymentForm(forms.ModelForm):
+    amount = forms.IntegerField()
+
     class Meta:
         model = AaioPaymentStatus
         fields = ['amount']
