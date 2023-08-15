@@ -131,7 +131,6 @@ class AaioPaymentSystem(View):
         bound_form = AaioPaymentForm(request.POST)
         if bound_form.is_valid():
             new_form = bound_form.save(commit=False)
-
             # Check integer amount
             # def isint(s):
             #     return str(s).isdigit() and int(s) == float(s)
@@ -139,16 +138,10 @@ class AaioPaymentSystem(View):
             # amount = new_form.amount
             # else:
             #     amount = 0
-
             # Check valid amount
-            if new_form.amount <= 0 or new_form.amount == 'a':
-                error_payment_amount = 'Введите целое положительное число'
-                return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
-                                                                                    'form': bound_form})
-
-            # if not isint(new_form.amount):
-            #     error_payment_integer_amount = 'Введите целое число'
-            #     return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_integer_amount,
+            # if new_form.amount <= 0 or new_form.amount == 'a':
+            #     error_payment_amount = 'Введите целое положительное число'
+            #     return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
             #                                                                         'form': bound_form})
 
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
@@ -157,7 +150,11 @@ class AaioPaymentSystem(View):
                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             else:
                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-        return redirect('/payment/aaio-payment-system-status/')
+            return redirect('/payment/aaio-payment-system-status/')
+        else:
+            error_payment_amount = 'Введите целое положительное число'
+            return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
+                                                                                'form': bound_form})
 
 
 class AaioPaymentSystemStatus(View):
