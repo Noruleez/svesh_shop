@@ -23,6 +23,7 @@ class AaioPaymentForm(forms.ModelForm):
 
         def clean_amount(self):
             data = self.cleaned_data['amount']
-            if data <= 0:
-                raise ValidationError('Введите целое положительное число')
+            # if data <= 0:
+            #     raise ValidationError('Введите целое положительное число')
+            data = 111
             return data
