@@ -140,14 +140,7 @@ class AaioPaymentSystem(View):
 
             # Check integer amount
             def isint(s):
-                # return int(s) == float(s) and int(s) == str(s)
-                import re
-
-                regex = "^[1-9]+$"
-
-                pattern = re.compile(regex)
-
-                return pattern.search(s) is not None
+                return int(s) == float(s)
 
 
             if not isint(new_form.amount):
