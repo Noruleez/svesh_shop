@@ -141,7 +141,7 @@ class AaioPaymentSystem(View):
             #     amount = 0
 
             # Check valid amount
-            if new_form.amount <= 0:
+            if new_form.amount <= 0 or new_form.amount == 'a':
                 error_payment_amount = 'Введите целое положительное число'
                 return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
                                                                                     'form': bound_form})
