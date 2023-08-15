@@ -15,7 +15,7 @@ class FreeKassaPaymentForm(forms.ModelForm):
 
 
 class AaioPaymentForm(forms.ModelForm):
-    amount = forms.IntegerField(widget=forms.NumberInput(attrs={'placeholder': 'Сумма пополнения'}))
+    amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}))
     # widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'})
     class Meta:
         model = AaioPaymentStatus
