@@ -136,12 +136,12 @@ class AaioPaymentSystem(View):
             # def isint(s):
             #     return str(s).isdigit() and int(s) == float(s)
             # if isint(new_form.amount):
-            amount = new_form.amount
+            # amount = new_form.amount
             # else:
             #     amount = 0
 
             # Check valid amount
-            if amount <= 0 and amount == 'a':
+            if new_form.amount <= 0:
                 error_payment_amount = 'Введите целое положительное число'
                 return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
                                                                                     'form': bound_form})
@@ -154,9 +154,9 @@ class AaioPaymentSystem(View):
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
-                AaioPaymentStatus.objects.create(user=request.user, amount=amount, status='WaitPayment')
+                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             else:
-                AaioPaymentStatus.objects.create(user=request.user, amount=amount, status='WaitPayment')
+                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
         return redirect('/payment/aaio-payment-system-status/')
 
 
