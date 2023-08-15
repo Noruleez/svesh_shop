@@ -132,28 +132,31 @@ class AaioPaymentSystem(View):
         if bound_form.is_valid():
             new_form = bound_form.save(commit=False)
 
-            # Check payment amount
-            if new_form.amount <= 0:
-                error_payment_amount = 'Сумма пополнения не может быть равной нулю или отрицательной'
-                return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
-                                                                                    'form': bound_form})
-
             # Check integer amount
             def isint(s):
                 return s.isdigit() and int(s) == float(s)
+            if isint(new_form.amount):
+                amount = new_form.amount
+            else:
+                amount = 0
 
-
-            if not isint(new_form.amount):
-                error_payment_integer_amount = 'Введите целое число'
-                return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_integer_amount,
+            # Check valid amount
+            if amount <= 0:
+                error_payment_amount = 'Введите целое положительное число'
+                return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
                                                                                     'form': bound_form})
+
+            # if not isint(new_form.amount):
+            #     error_payment_integer_amount = 'Введите целое число'
+            #     return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_integer_amount,
+            #                                                                         'form': bound_form})
 
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+                AaioPaymentStatus.objects.create(user=request.user, amount=amount, status='WaitPayment')
             else:
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+                AaioPaymentStatus.objects.create(user=request.user, amount=amount, status='WaitPayment')
         return redirect('/payment/aaio-payment-system-status/')
 
 
