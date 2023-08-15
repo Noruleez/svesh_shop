@@ -146,8 +146,7 @@ class AaioPaymentSystem(View):
                 except ValueError:
                     return False
 
-            #if isint(new_form.amount) == False:
-            if True:
+            if not isint(new_form.amount):
                 error_payment_integer_amount = 'Введите целое число'
                 return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_integer_amount,
                                                                                     'form': bound_form})
