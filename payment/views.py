@@ -142,10 +142,11 @@ class AaioPaymentSystem(View):
             def isint(s):
                 try:
                     int(s)
-                    return True
+                    return int(s) == float(s)
                 except ValueError:
                     return False
-            if not isint(new_form.amount):
+
+            if isint(new_form.amount) == False:
                 error_payment_integer_amount = 'Введите целое число'
                 return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_integer_amount,
                                                                                     'form': bound_form})
