@@ -13,14 +13,14 @@ class FreeKassaPaymentForm(forms.ModelForm):
 
 
 class AaioPaymentForm(forms.ModelForm):
-    amount = forms.IntegerField()
+    amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}))
 
     class Meta:
         model = AaioPaymentStatus
         fields = ['amount']
-        widgets = {
-            'amount': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+        # widgets = {
+        #     'amount': forms.TextInput(attrs={'class': 'form-control'}),
+        # }
 
         def clean_amount(self, *args, **kwargs):
             data = self.cleaned_data.get('amount')
