@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from .models import *
 
@@ -15,7 +15,8 @@ class FreeKassaPaymentForm(forms.ModelForm):
 
 
 class AaioPaymentForm(forms.ModelForm):
-    amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}))
+    amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}), validators=[MaxValueValidator(10000),
+                                                                                                               MinValueValidator(1)])
     # widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'})
     class Meta:
         model = AaioPaymentStatus
