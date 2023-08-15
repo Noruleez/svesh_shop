@@ -133,12 +133,12 @@ class AaioPaymentSystem(View):
             new_form = bound_form.save(commit=False)
 
             # Check integer amount
-            def isint(s):
-                return str(s).isdigit() and int(s) == float(s)
-            if isint(new_form.amount):
-                amount = new_form.amount
-            else:
-                amount = 0
+            # def isint(s):
+            #     return str(s).isdigit() and int(s) == float(s)
+            # if isint(new_form.amount):
+            amount = new_form.amount
+            # else:
+            #     amount = 0
 
             # Check valid amount
             if amount <= 0:
