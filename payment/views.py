@@ -146,11 +146,11 @@ class AaioPaymentSystem(View):
                 except ValueError:
                     return False
 
-            if isint(new_form.amount) == False:
+            #if isint(new_form.amount) == False:
+            if True:
                 error_payment_integer_amount = 'Введите целое число'
                 return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_integer_amount,
                                                                                     'form': bound_form})
-
 
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
