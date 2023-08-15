@@ -17,18 +17,17 @@ class FreeKassaPaymentForm(forms.ModelForm):
 class AaioPaymentForm(forms.ModelForm):
     amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}), validators=[MaxValueValidator(10000),
                                                                                                                MinValueValidator(1)])
-    # widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'})
     class Meta:
         model = AaioPaymentStatus
         fields = ['amount']
         # widgets = {
         #     'amount': forms.TextInput(attrs={'class': 'form-control'}),
         # }
-
-    def clean_amount(self):
-        data = self.cleaned_data['amount']
-        if data <= 0:
-            raise ValidationError("Введите положительное число")
-        if int(data) != float(data):
-            raise ValidationError("Введите целое число")
-        return data
+    #
+    # def clean_amount(self):
+    #     data = self.cleaned_data['amount']
+    #     if data <= 0:
+    #         raise ValidationError("Введите положительное число")
+    #     if int(data) != float(data):
+    #         raise ValidationError("Введите целое число")
+    #     return data
