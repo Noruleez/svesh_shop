@@ -24,6 +24,6 @@ class AaioPaymentForm(forms.ModelForm):
 
     def clean_amount(self):
         data = self.cleaned_data['amount']
-        if "fred@example.com" not in data:
+        if data:
             raise ValidationError("You have forgotten about Fred!")
         return data
