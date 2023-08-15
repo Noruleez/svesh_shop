@@ -1,5 +1,5 @@
 from django import forms
-
+from django.core.exceptions import ValidationError
 from .models import *
 
 
@@ -24,7 +24,7 @@ class AaioPaymentForm(forms.ModelForm):
 
         def clean_amount(self):
             data = self.cleaned_data['amount']
-            if data == 100:
-                raise forms.ValidationError('Не вводи 100')
+            if data:
+                raise ValidationError("You have forgotten about Fred!")
             else:
                 return data
