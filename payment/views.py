@@ -152,9 +152,7 @@ class AaioPaymentSystem(View):
                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             return redirect('/payment/aaio-payment-system-status/')
         else:
-            error_payment_amount = 'Введите целое положительное число'
-            return render(request, 'payment/aaio_payment_system.html', context={'error_payment_amount': error_payment_amount,
-                                                                                'form': bound_form})
+            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
 
 
 class AaioPaymentSystemStatus(View):
