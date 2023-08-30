@@ -9,35 +9,28 @@
 
 <div class="container">
         <div class="col">
-<!--            {% if request.user.is_authenticated %}-->
                 <div class="card mt-5">
-
                     <h1>Вход</h1>
-                    
-                    {% get_providers as socialaccount_providers %}
-                    
-                    {% if socialaccount_providers %}
-                    <p>{% blocktrans with site.name as site_name %}Please sign in with one
-                    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-                    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
-                    
-                    <div class="socialaccount_ballot">
-                    
-                      <ul class="socialaccount_providers">
-                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-                      </ul>
-                    
-                      <div class="login-or">{% trans 'or' %}</div>
-                    
+<!--                    {% get_providers as socialaccount_providers %}-->
+<!--                    -->
+<!--                    {% if socialaccount_providers %}-->
+<!--                    <p>{% blocktrans with site.name as site_name %}Please sign in with one-->
+<!--                    of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>-->
+<!--                    for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>-->
+<!--                    -->
+<!--                    <div class="socialaccount_ballot">-->
+<!--                    -->
+<!--                      <ul class="socialaccount_providers">-->
+<!--                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}-->
+<!--                      </ul>-->
+<!--                    -->
+<!--                      <div class="login-or">{% trans 'or' %}</div>-->
                     </div>
-                    
                     {% include "socialaccount/snippets/login_extra.html" %}
-                    
-                    {% else %}
+<!--                    {% else %}-->
                     <p>Если у вас еще нету аккаунта,
                     <a href="{{ signup_url }}">зарегистрируйтесь</a>.</p>
-                    {% endif %}
-                    
+<!--                    {% endif %}-->
                     <form class="login" method="POST" action="{% url 'account_login' %}">
                       {% csrf_token %}
                       {{ form.as_p }}
@@ -47,11 +40,7 @@
                       <a class="button secondaryAction" href="{% url 'account_reset_password' %}">Забыли пароль?</a>
                       <button class="primaryAction" type="submit">Войти</button>
                     </form>
-                    
-                    
-
                 </div>
-<!--            {% endif %}-->
         </div>
 </div>
 {% endblock %}
