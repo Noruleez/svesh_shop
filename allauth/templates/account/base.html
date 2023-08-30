@@ -1,26 +1,25 @@
 {% extends 'base.html' %}
 
 
-{% block content %}
-    <div class="container">
-        <div class="col">
-            {% if request.user.is_authenticated %}
-                <div class="card mt-5">
-                    <div class="card-header">
-                        <div class="text-center">
-                        
-                        </div>
-                </div>
-            {% endif %}
-        </div>
+<div class="container">
+    <div class="col">
+        {% if request.user.is_authenticated %}
+            <div class="card mt-5">
+                <div class="card-header">
+                    <div class="text-center">
+                    {% block content %}
+                    {% endblock %}
+                    </div>
+            </div>
+        {% endif %}
     </div>
-{% endblock %}
+</div>
 
 
 
 
 
-        
+    
 <!--{% load i18n %}-->
 <!--<!DOCTYPE html>-->
 <!--<html>-->
