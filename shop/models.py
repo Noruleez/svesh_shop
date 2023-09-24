@@ -42,8 +42,8 @@ class Balance(models.Model):
 
 
 class Product(models.Model):
-    country = models.ForeignKey('Country', on_delete=models.CASCADE)
-    format = models.ForeignKey('Format', on_delete=models.CASCADE)
+    country = models.ForeignKey('Country', on_delete=models.PROTECT)
+    format = models.ForeignKey('Format', on_delete=models.PROTECT)
     delay = models.IntegerField(db_index=True)
     amount = models.IntegerField(db_index=True)
     price = models.DecimalField(max_digits=8, decimal_places=2, db_index=True)
@@ -66,7 +66,7 @@ class ProductLink(models.Model):
 
 class Purchase(models.Model):
     user = models.ForeignKey(User, blank=True, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, blank=True, on_delete=models.CASCADE) # нужен айди, чтобы забрать N количество, и N количество ссылок
+    product = models.ForeignKey(Product, blank=True, on_delete=models.PROTECT)
     amount = models.IntegerField(db_index=True)
     date_time_create = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=150, blank=True, unique=True)
