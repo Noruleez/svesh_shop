@@ -8,6 +8,10 @@ from .forms import PurchaseForm
 from .utils import ObjectDetailMixin
 
 
+class AboutOurProject(View):
+    def get(self, request):
+        return render(request, 'shop/about_our_project.html')
+
 class DocOfferAgreement(View):
     def get(self, request):
         return render(request, 'shop/doc_offer_agreement.html')

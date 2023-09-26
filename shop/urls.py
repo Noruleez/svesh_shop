@@ -18,6 +18,8 @@ urlpatterns = [
 
     path('balance/', BalanceDetail.as_view(), name='balance_url'),
 
+
+    path('about_our_project/', AboutOurProject.as_view(), name='about_our_project_url'),
     path('tdata-info/', TdataInfo.as_view(), name='tdata_info_url'),
     path('rules/', Rules.as_view(), name='rules_url'),
     path('doc-offer-agreement/', DocOfferAgreement.as_view(), name='doc_offer_agreement_url'),
