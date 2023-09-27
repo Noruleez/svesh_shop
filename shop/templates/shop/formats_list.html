@@ -11,6 +11,9 @@
         {% for format in formats %}
             <div class="col">
                 <div class="card">
+                     <div class="card-header">
+                         <p>Формат предназначенный для работы в Telegram Desktop</p>
+                    </div>
                     <div class="card-body">
                         <div class="text-center">
                             <a href="{{ format.get_absolute_url }}" class="btn btn-outline-success">{{ format.title }}</a>
