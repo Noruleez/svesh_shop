@@ -13,5 +13,18 @@
                 {% endfor %}
             {% endif %}
         </div>
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <div class="text-center">
+                    <h3>Как купить</h3>
+                    <p>
+                        1) Выберите Telegram аккаунт с нужными параметрами в списке товаров и нажмите купить.
+                        2) Введите количество аккаунтов, которое хотите приобрести.
+                        3) <a href="{% url 'choose_payment_system_url' %}" class="btn btn-outline-success" type="submit">Пополните баланс</a> на необходимую сумму и нажмите купить.
+                        4) После покупки вы получите ссылку на скачивание в <a href="{% url 'purchases_list_url' %}" class="btn btn-outline-success" type="submit">в ваших заказах</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
