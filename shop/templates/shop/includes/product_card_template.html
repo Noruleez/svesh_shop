@@ -1,6 +1,7 @@
 <div class="col-6 mt-5">
     <div class="card">
         <div class="card-header">
+            <h3>Telegram аккаунты</h3>
         </div>
         <div class="card-body">
             <p class="card-text border-bottom">Страна регистрации - {{ product.country.title }}</p>
@@ -8,11 +9,11 @@
             <p class="card-text border-bottom">Прошло дней с момента регистрации - {{ product.delay }}</p>
             <p class="card-text border-bottom">Осталось - {{ product.amount }} шт.</p>
             <p class="card-text border-bottom">Цена за 1 аккаунт - {{ product.price }} руб.</p>
-            <div class="text-center">
-                <a href="{{ product.get_absolute_url }}" class="btn btn-outline-success">Перейти</a>
-            </div>
         </div>
         <div class="card-footer">
+            <div class="text-center">
+                <a href="{{ product.get_absolute_url }}" class="btn btn-outline-success">Купить</a>
+            </div>
         </div>
     </div>
 </div>
