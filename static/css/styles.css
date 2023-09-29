@@ -82,7 +82,7 @@ a {
           transition: all 1s ease;
 }
 
-.change-block:hover .collapse .navbar-nav a{
+.change-block:hover .collapse .navbar-nav .nav-item a{
   color: SkyBlue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
