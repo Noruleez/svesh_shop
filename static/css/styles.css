@@ -93,3 +93,7 @@ a {
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
+
+.change-block .change-block-color:hoover{
+    color: SkyBlue;
+}
