@@ -52,7 +52,7 @@ class FormatsList(View):
 class FormatProductsList(View):
     def get(self, request, slug):
         format = Format.objects.get(slug=slug)
-        products = Product.objects.filter(format__id=format.id).order_by('delay')
+        products = Product.objects.filter(format__id=format.id).order_by('amount')
         return render(request, 'shop/format_products_list.html', context={'products': products})
 
 
@@ -65,13 +65,13 @@ class CountriesList(View):
 class CountryProductsList(View):
     def get(self, request, slug):
         country = Country.objects.get(slug=slug)
-        products = Product.objects.filter(country__id=country.id).order_by('delay')
+        products = Product.objects.filter(country__id=country.id).order_by('amount')
         return render(request, 'shop/country_products_list.html', context={'products': products})
 
 
 class ProductsList(View):
     def get(self, request):
-        products = Product.objects.filter().order_by('delay')
+        products = Product.objects.filter().order_by('amount')
         return render(request, 'shop/index.html', context={'products': products})
 
 
@@ -131,7 +131,7 @@ class ProductDetail(View):
 
 class PurchasesList(View):
     def get(self, request):
-        purchases = Purchase.objects.filter(user=request.user)
+        purchases = Purchase.objects.filter(user=request.user).order_by('date_time_create')
         return render(request, 'shop/purchases_list.html', context={'purchases': purchases})
 
 
