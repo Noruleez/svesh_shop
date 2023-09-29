@@ -37,7 +37,7 @@
                             <a class="nav-link active" aria-current="page" href="{% url 'countries_list_url' %}">Страны регистрации</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active change-color-link" aria-current="page" href="{% url 'about_our_project_url' %}">О проекте</a>
+                            <a class="change-color-link nav-link active" aria-current="page" href="{% url 'about_our_project_url' %}">О проекте</a>
                         </li>
                     </ul>
                     {% if user.is_authenticated %}
