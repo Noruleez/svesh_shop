@@ -19,11 +19,11 @@ body {
 /* Footer */
 
 .footer {
-    background-color: #DCDCDC;
+    background-color: #87CEEB;
 }
 
 .footer h4 {
-    color: #87CEFA;
+    color: #696969;
     text-transform: uppercase;
     font-size: 16px;
     border-bottom: 1px solid #666;
@@ -55,10 +55,6 @@ body {
 }
 
 /* Footer */
-
-.navbar  {
-    background-color: #87CEEB;
-}
 
 /* ------------------------------------------------------------------------------------- */
 
