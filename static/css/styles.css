@@ -71,3 +71,7 @@ a.line-animation {
 a:hoover {
     background-size: 100% 2px;
 }
+
+.main-div {
+    background-color: #E6E6FA;
+}
