@@ -64,6 +64,10 @@ a {
   color: SkyBlue; /* Меняем цвет ссылки */
 }
 
+.change-color-block:hover + .card .change-header{
+  background-color: green;
+}
+
 .change-color-block:hover ~ .card .change-header{
   background-color: green;
 }
