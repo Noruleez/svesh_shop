@@ -81,9 +81,3 @@ a {
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
-
-.btn-outline-success:hoover{
-  color: green;
-  -webkit-transition: all 1s ease;
-          transition: all 1s ease;
-}
