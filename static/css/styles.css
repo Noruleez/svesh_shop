@@ -82,4 +82,9 @@ a {
           transition: all 0.5s ease;
 }
 
+.change-block .collapse .navbar-nav .nav-item a:hover{
+  color: SkyBlue;
+  -webkit-transition: all 0.5s ease;
+          transition: all 0.5s ease;
 }
+
