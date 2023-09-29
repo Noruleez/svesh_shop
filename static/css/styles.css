@@ -83,7 +83,13 @@ a {
 }
 
 change-block:hoover .card .card-body .change-buttton a{
-  color: blue;
+  color: SkyBlue;
+  -webkit-transition: all 1s ease;
+          transition: all 1s ease;
+}
+
+nav:hoover {
+  color: SkyBlue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
