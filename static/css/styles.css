@@ -67,6 +67,7 @@ a.line-animation {
     background-repeat: no-repeat;
     background-size: 0% 2px;
     transition: background-size .3s;
+    color: green;
 }
 
 a.line-animation:hoover {
