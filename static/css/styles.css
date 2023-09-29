@@ -64,7 +64,7 @@ a {
   color: SkyBlue; /* Меняем цвет ссылки */
 }
 
-.card:hover {
+.change-color-block:hover {
     color: green
     -webkit-transition: all 1s ease;
           transition: all 1s ease; /* Время изменения цвета */
