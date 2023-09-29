@@ -65,7 +65,7 @@ a {
 }
 
 .change-color-block:hover {
-    color: green
+    background: #53ea93;
     -webkit-transition: all 1s ease;
           transition: all 1s ease; /* Время изменения цвета */
 }
