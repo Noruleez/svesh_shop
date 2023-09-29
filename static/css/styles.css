@@ -88,7 +88,7 @@ a {
           transition: all 1s ease;
 }
 
-.change-block .navbar-brand:hoover{
+.change-block a:hoover .navbar-brand{
   color: Blue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
