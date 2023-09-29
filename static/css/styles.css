@@ -70,5 +70,5 @@ a {
           transition: all 1s ease; /* Время изменения цвета */
 }
 .change-color-link:hover{
-  color: #ffa000; /* Меняем цвет ссылки */
+  color: red; /* Меняем цвет ссылки */
 }
