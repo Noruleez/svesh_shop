@@ -60,7 +60,7 @@ body {
 
 
 
-.line-animation a {
+a.line-animation {
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
     background-position: 0% 100%;
@@ -69,7 +69,7 @@ body {
     transition: background-size .3s;
 }
 
-.line-animation a:hover {
+a.line-animation a:hover {
     background-size: 100% 2px;
 }
 
