@@ -131,7 +131,7 @@ class ProductDetail(View):
 
 class PurchasesList(View):
     def get(self, request):
-        purchases = Purchase.objects.filter(user=request.user).order_by('date_time_create')
+        purchases = Purchase.objects.filter(user=request.user)
         return render(request, 'shop/purchases_list.html', context={'purchases': purchases})
 
 
