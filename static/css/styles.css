@@ -19,7 +19,7 @@ body {
 /* Footer */
 
 .footer {
-    background-color: white;
+    background-color: #DCDCDC;
 }
 
 .footer h4 {
@@ -58,24 +58,8 @@ body {
 
 /* ------------------------------------------------------------------------------------- */
 
-a.line-animation {
+a {
     text-decoration: none;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 2px;
-    transition: background-size .3s;
-    color: ForestGreen;
 }
 
-a:hoover {
-    background-size: 100% 2px;
-}
 
-.main-div {
-    background-color: #DCDCDC;
-}
-
-.card {
-    background-color: #DCDCDC;
-}
