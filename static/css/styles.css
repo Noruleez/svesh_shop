@@ -82,7 +82,7 @@ a {
           transition: all 1s ease;
 }
 
-.change-buttton:hoover{
+change-block:hoover .card .card-body .change-buttton{
   color: blue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
