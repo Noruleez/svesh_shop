@@ -83,7 +83,7 @@ a {
 }
 
 .change-block:hover a{
-  background-color: SkyBlue;
+  color: SkyBlue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
