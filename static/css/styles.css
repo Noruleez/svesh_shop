@@ -30,19 +30,12 @@ body {
     padding-bottom: 3px;
 }
 
-.footer a {
-    text-decoration: none;
-    transition: all .3s;
-}
+
 
 .footer a, .footer li {
     color: #000000;
 }
 
-.footer a:hover {
-    color: #000000;
-    text-decoration: underline
-}
 
 .footer li a {
     display: block;
