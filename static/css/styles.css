@@ -82,14 +82,14 @@ a {
           transition: all 1s ease;
 }
 
-.change-block .navbar-brand:hoover{
-  color: Blue;
+.change-block .collapse .navbar-nav .nav-item a:hover{
+  color: SkyBlue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
 
-.change-block .collapse .navbar-nav .nav-item a:hover{
-  color: SkyBlue;
+.change-block .collapse .nav-buttons a:hoover{
+  color: Blue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
