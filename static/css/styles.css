@@ -82,7 +82,7 @@ a {
           transition: all 1s ease;
 }
 
-.change-block:hover .navbar-brand a{
+.change-block:hover .collapse .navbar-nav a{
   color: SkyBlue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
