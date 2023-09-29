@@ -58,8 +58,6 @@ body {
 
 /* ------------------------------------------------------------------------------------- */
 
-
-
 a.line-animation {
     text-decoration: none;
     background-image: linear-gradient(currentColor, currentColor);
@@ -67,11 +65,9 @@ a.line-animation {
     background-repeat: no-repeat;
     background-size: 0% 2px;
     transition: background-size .3s;
-    color: green;
+    color: ForestGreen;
 }
 
 a:hoover {
     background-size: 100% 2px;
 }
-
-
