@@ -64,8 +64,11 @@ a {
   color: SkyBlue; /* Меняем цвет ссылки */
 }
 
+
+
 .change-color-block:hover {
-    background: #53ea93;
-    -webkit-transition: all 1s ease;
-          transition: all 1s ease; /* Время изменения цвета */
+     -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+
 }
