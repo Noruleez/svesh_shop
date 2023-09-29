@@ -69,7 +69,7 @@ a.line-animation {
     transition: background-size .3s;
 }
 
-a.line-animation a:hover {
+a.line-animation:hoover {
     background-size: 100% 2px;
 }
 
