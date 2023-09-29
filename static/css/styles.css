@@ -30,8 +30,13 @@ body {
     padding-bottom: 3px;
 }
 
+.footer a, .footer li {
+    color: #000000;
+}
+
 .footer li a {
     display: block;
+    padding-bottom: 3px;
 }
 
 .footer-icons a {
