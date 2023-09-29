@@ -77,7 +77,7 @@ a {
 }
 
 .change-block:hover .card .card-body .card-text{
-  background-color: SkyBlue;
+  color: SkyBlue;
   -webkit-transition: all 1s ease;
           transition: all 1s ease;
 }
