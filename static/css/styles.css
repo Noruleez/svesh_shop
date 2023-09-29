@@ -64,6 +64,7 @@ a {
 
 
 .change-color-link{
+  color: green;
   line-height: 1;
   text-decoration: none;
   -webkit-transition: all 1s ease;
