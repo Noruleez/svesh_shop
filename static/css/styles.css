@@ -71,5 +71,5 @@ a {
           transition: all 1s ease; /* Время изменения цвета */
 }
 .change-color-link:hover{
-  color: DarkGreen; /* Меняем цвет ссылки */
+  color: SkyBlue; /* Меняем цвет ссылки */
 }
