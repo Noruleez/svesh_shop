@@ -45,7 +45,7 @@ class BalanceDetail(View):
 
 class FormatsList(View):
     def get(self, request):
-        formats = Format.objects.all()
+        formats = Format.objects.all().order_by('title')
         return render(request, 'shop/formats_list.html', context={'formats': formats})
 
 
