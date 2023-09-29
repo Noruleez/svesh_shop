@@ -141,6 +141,6 @@ class PurchaseLinksList(View):
     def get(self, request, slug):
         purchase = Purchase.objects.get(slug=slug)
         if purchase.user != request.user or request.user.is_anonymous:
-            return redirect('/purchases')
+            return redirect('/purchases/')
         links = PurchaseLink.objects.filter(purchase__id=purchase.id)
         return render(request, 'shop/purchase_links_list.html', context={'links': links})
