@@ -3,15 +3,15 @@
 /* For footer push down */
 
 html {
-  height: 100%;
+    height: 100%;
 }
 
 body {
   margin: 0;
   /* Растягиваем body по высоте html */
-  min-height: 100%;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 /* ------------------------------------------------------------------------------------- */
@@ -19,7 +19,7 @@ body {
 /* Header */
 
 header {
-background-color: DimGrey;
+    background-color: #696969;
 }
 
 /* Header */
@@ -62,37 +62,37 @@ a {
 }
 
 .change-color-link{
-  color: green;
-  line-height: 1;
-  text-decoration: none;
-  -webkit-transition: all 1s ease;
+    color: green;
+    line-height: 1;
+    text-decoration: none;
+    -webkit-transition: all 1s ease;
           transition: all 1s ease; /* Время изменения цвета */
 }
 .change-color-link:hover{
-  color: SkyBlue; /* Меняем цвет ссылки */
+    color: SkyBlue; /* Меняем цвет ссылки */
 }
 
 .change-block:hover .card .card-header{
-  background-color: SkyBlue;
-  -webkit-transition: all 0.5s ease;
+    background-color: SkyBlue;
+    -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
 
 .change-block:hover .card .card-footer{
-  background-color: SkyBlue;
-  -webkit-transition: all 0.5s ease;
+    background-color: SkyBlue;
+    -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
 
 .change-block:hover .card .card-body .card-text{
-  color: green;
-  -webkit-transition: all 0.5s ease;
+    color: green;
+    -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
 
 .change-block .collapse .navbar-nav .nav-item a:hover{
-  color: SkyBlue;
-  -webkit-transition: all 0.5s ease;
+    color: SkyBlue;
+    -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
 
