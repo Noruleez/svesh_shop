@@ -73,13 +73,13 @@ a {
 }
 
 .change-block:hover .card .card-header{
-    background-color: SkyBlue;
+    background-color: green;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
 
 .change-block:hover .card .card-footer{
-    background-color: SkyBlue;
+    background-color: green;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
@@ -91,7 +91,7 @@ a {
 }
 
 .change-block .collapse .navbar-nav .nav-item a:hover{
-    color: green;
+    color: SkyBlue;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
