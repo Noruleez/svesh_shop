@@ -73,7 +73,7 @@ a {
 }
 
 .change-block:hover .card .card-header{
-    background-color: DimGray;
+    background-color: LimeGreen;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
