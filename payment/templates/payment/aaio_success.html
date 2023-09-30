@@ -13,11 +13,7 @@
                         <h3>Успешное пополнение!</h3>
                     </div>
                     <div class="card-body">
-                        {% if request.user.is_authenticated %}
-                            <h5 class="card-text">На ваш аккаунт - {{ user_email }} зачислено {{ amount }} руб.</h5>
-                        {% else %}
-                            <a href="{% url 'account_login' %}" class="btn btn-outline-success">Для пополнения баланса войдите/зарегистрируйтесь</a>
-                        {% endif %}
+                        <h5 class="card-text">На ваш аккаунт - {{ user_email }} зачислено {{ amount }} руб.</h5>
                     </div>
                 </div>
             </div>
