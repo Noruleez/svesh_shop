@@ -12,20 +12,6 @@ class AboutOurProject(View):
     def get(self, request):
         return render(request, 'shop/about_our_project.html')
 
-class DocOfferAgreement(View):
-    def get(self, request):
-        return render(request, 'shop/doc_offer_agreement.html')
-
-
-class DocPaymentBack(View):
-    def get(self, request):
-        return render(request, 'shop/doc_payment_back.html')
-
-
-class DocPrivacyPolicy(View):
-    def get(self, request):
-        return render(request, 'shop/doc_privacy_policy.html')
-
 
 class Rules(View):
     def get(self, request):
@@ -146,3 +132,18 @@ class PurchaseLinksList(View):
             return redirect('/purchases/')
         links = PurchaseLink.objects.filter(purchase__id=purchase.id)
         return render(request, 'shop/purchase_links_list.html', context={'links': links})
+
+
+# class DocOfferAgreement(View):
+#     def get(self, request):
+#         return render(request, 'shop/doc_offer_agreement.html')
+#
+#
+# class DocPaymentBack(View):
+#     def get(self, request):
+#         return render(request, 'shop/doc_payment_back.html')
+#
+#
+# class DocPrivacyPolicy(View):
+#     def get(self, request):
+#         return render(request, 'shop/doc_privacy_policy.html')
