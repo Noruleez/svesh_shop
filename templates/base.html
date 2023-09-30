@@ -44,7 +44,7 @@
                         <a href="{% url 'choose_payment_system_url' %}" class="btn btn-outline-success" type="submit"> + Пополнить баланс</a>
                         <a href="{% url 'account_logout' %}" class="btn btn-outline-success" type="submit">Выйти с аккаунта</a>
                     {% else %}
-                        <a href="{% url 'account_signup' %}" class="btn btn-outline-success" type="primary">Регистрация/Вход</a>
+                        <a href="{% url 'account_signup' %}" class="btn btn-outline-primary" type="submit">Регистрация/Вход</a>
                     {% endif %}
                 </div>
             </div>
