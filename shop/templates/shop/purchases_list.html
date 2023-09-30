@@ -10,11 +10,11 @@
             {% if user.is_authenticated %}
                 {% for purchase in purchases %}
                     <div class="col-12">
-                        <div class="card">
+                        <div class="card border-dark">
                             <div class="card-body">
                                 <p>Дата и время покупки: {{ purchase.date_time_create }}</p>
                                 <p>Количество аккаунтов: {{ purchase.amount }}</p>
-                                <a href="{{ purchase.get_absolute_url }}" class="btn btn-outline-success">Ссылки на скачивание</a>
+                                <a href="{{ purchase.get_absolute_url }}" class="btn btn-outline-success">Перейти к списку ссылок на скачивание</a>
                             </div>
                         </div>
                     </div>
