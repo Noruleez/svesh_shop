@@ -73,13 +73,13 @@ a {
 }
 
 .change-block:hover .card .card-header{
-    background-color: black;
+    background-color: DimGray;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
 
 .change-block:hover .card .card-footer{
-    background-color: black;
+    background-color: DimGray;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
