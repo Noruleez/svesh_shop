@@ -8,8 +8,8 @@
     <div class="container">
         <div class="col">
             {% if request.user.is_authenticated %}
-                <div class="card mt-5">
-                    <div class="card-header">
+                <div class="card mt-5 border-dark">
+                    <div class="card-header border-dark">
                         <div class="text-center">
                             <h3>Aaio Оплата</h3>
                         </div>
@@ -29,14 +29,12 @@
                                         <p>{{ field }}</p>
                                     </div>
                                 {% endfor %}
-                                <div class="text-center mt-5">
+                                <div class="mt-5">
                                     <p>{{ error_payment_amount }}</p>
                                     <button type="submit" class="btn btn-outline-success">Пополнить</button>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <div class="card-footer">
                     </div>
                 </div>
             {% endif %}
