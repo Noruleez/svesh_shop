@@ -10,8 +10,14 @@
             <div class="card mt-5 border-dark">
                 <div class="card-body">
                     <div class="text-center">
-                        <h4 class="card-text mt-2 mb-4">Ваш баланс - {{ balance.amount }} руб.</h4>
-                        <a href="{% url 'choose_payment_system_url' %}" class="btn btn-outline-success mb-2 h4">+ Пополнить</a>
+                        {% if user.is_authenticated %}
+                            <h4 class="card-text mt-2 mb-4">Ваш баланс - {{ balance.amount }} руб.</h4>
+                            <a href="{% url 'choose_payment_system_url' %}" class="btn btn-outline-success mb-2">+ Пополнить</a>
+                        {% else %}
+                            <div class="text-center">
+                                <a href="{% url 'account_login' %}" class="h2 btn btn-outline-success">Для просмотра баланса войдите/зарегистрируйтесь</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
