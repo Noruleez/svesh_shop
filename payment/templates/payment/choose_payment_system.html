@@ -20,11 +20,7 @@
                 <div class="card mt-5 border-dark">
                     <div class="card-body">
                         <div class="text-center">
-                            {% if request.user.is_authenticated %}
-                                <a href="{% url 'aaio_payment_system_url' %}" class="btn btn-outline-success">Aaio</a>
-                            {% else %}
-                                <a href="{% url 'account_login' %}" class="btn btn-outline-success">Для пополнения баланса войдите/зарегистрируйтесь</a>
-                            {% endif %}
+                            <a href="{% url 'aaio_payment_system_url' %}" class="btn btn-outline-success">Aaio</a>
                         </div>
                     </div>
                 </div>
