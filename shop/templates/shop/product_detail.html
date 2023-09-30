@@ -8,9 +8,7 @@
     <div class="container">
         <div class="col">
             <div class="card mt-5">
-                <div class="card-header">
-                </div>
-                <div class="card-body">
+                <div class="card-body border-dark">
                     <p class="card-text border-bottom">Страна регистрации - {{ product.country.title }}</p>
                     <p class="card-text border-bottom">Формат - {{ product.format.title }}</p>
                     <p class="card-text border-bottom">Отлежка - {{ product.delay }} дней</p>
@@ -26,7 +24,7 @@
                                             {{ field.errors }}
                                         </div>
                                     {% endif %}
-                                    Введите количество аккаунтов
+                                    <p class="card-text">Введите количество аккаунтов</p>
                                     {{ field }}
                                 </div>
                             {% endfor %}
@@ -40,8 +38,6 @@
                             <a href="{% url 'account_signup' %}" class="btn btn-outline-success">Для покупки войдите/зарегистрируйтесь</a>
                         </div>
                     {% endif %}
-                </div>
-                <div class="card-footer">
                 </div>
             </div>
         </div>
