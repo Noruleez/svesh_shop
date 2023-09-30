@@ -39,6 +39,8 @@ class TdataInfo(View):
 
 class BalanceDetail(View):
     def get(self, request):
+        if request.user.is_anonymous:
+            return render(request, 'shop/balance.html')
         balance = Balance.objects.get(user=request.user)
         return render(request, 'shop/balance.html', context={'balance': balance})
 
