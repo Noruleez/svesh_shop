@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="container">
     <div class="row mt-5">
-        Ссылки на скачивание:
+        <h5>Ссылки на скачивание:</h5>
         <ul>
             {% for link in links %}
                 <li>{{ link.link }}</li>
@@ -16,5 +15,4 @@
         </ul>
     </div>
 </div>
-
 {% endblock %}
