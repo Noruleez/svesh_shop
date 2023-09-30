@@ -7,16 +7,12 @@
 {% block content %}
     <div class="container">
         <div class="col">
-            <div class="card mt-5">
-                <div class="card-header">
-                </div>
+            <div class="card mt-5 border-dark">
                 <div class="card-body">
                     <div class="text-center">
-                        <p class="card-text border-bottom">Ваш баланс - {{ balance.amount }} руб.</p>
+                        <h5 class="card-text border-bottom">Ваш баланс - {{ balance.amount }} руб.</h5>
                         <a href="{% url 'choose_payment_system_url' %}" class="btn btn-outline-success">+ Пополнить</a>
                     </div>
-                </div>
-                <div class="card-footer">
                 </div>
             </div>
         </div>
