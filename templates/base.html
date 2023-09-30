@@ -18,7 +18,7 @@
         <link rel="manifest" href="{% static 'favicons/site.webmanifest' %}">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="background-color: #696969;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="change-block container-fluid">
                 <a class="navbar-brand" href="{% url 'products_list_url' %}">
                     <img src="{% static 'favicons/favicon-32x32.png' %}" alt="" width="32" height="32">
@@ -44,7 +44,7 @@
                         <a href="{% url 'choose_payment_system_url' %}" class="btn btn-outline-success" type="submit"> + Пополнить баланс</a>
                         <a href="{% url 'account_logout' %}" class="btn btn-outline-success" type="submit">Выйти с аккаунта</a>
                     {% else %}
-                        <a href="{% url 'account_signup' %}" class="btn btn-outline-success" type="submit">Регистрация/Вход</a>
+                        <a href="{% url 'account_signup' %}" class="btn btn-outline-success" type="primary">Регистрация/Вход</a>
                     {% endif %}
                 </div>
             </div>
