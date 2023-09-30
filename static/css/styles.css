@@ -18,14 +18,16 @@ body {
 
 /* Header */
 
-
+header {
+    color: white;
+}
 
 /* Header */
 
 /* Footer */
 
 .footer {
-    background-color: #1E90FF;
+    background-color: #DCDCDC;
 }
 
 .footer h4 {
@@ -89,7 +91,7 @@ a {
 }
 
 .change-block .collapse .navbar-nav .nav-item a:hover{
-    color: #000000;
+    color: SkyBlue;
     -webkit-transition: all 0.5s ease;
           transition: all 0.5s ease;
 }
