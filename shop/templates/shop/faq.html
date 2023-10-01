@@ -1,0 +1,31 @@
+{% extends 'shop/base_shop.html' %}
+
+{% block title %}
+    FAQ - SveshShop
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col mb-5">
+            <div class="card border-dark">
+                <div class="card-body">
+                    <div class="text-center">
+                        <a href="{% url 'tdata_info_url' %}" class="btn btn-outline-success">Как использовать формат Tdata?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card border-dark">
+                    <div class="text-center">
+                        <a href="{% url 'phone_info_url' %}" class="btn btn-outline-success">Как зайти в аккаунт через телефон?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
