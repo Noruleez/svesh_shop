@@ -18,7 +18,7 @@ urlpatterns = [
 
     path('balance/', BalanceDetail.as_view(), name='balance_url'),
 
-    path('faq-info/', FaqInfo.as_view(), name='faq_info_url'),
+    path('faq/', Faq.as_view(), name='faq_url'),
     path('tdata-info/', TdataInfo.as_view(), name='tdata_info_url'),
     path('phone-info/', PhoneInfo.as_view(), name='phone_info_url'),
 

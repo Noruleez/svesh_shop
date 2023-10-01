@@ -18,9 +18,19 @@ class Rules(View):
         return render(request, 'shop/rules.html')
 
 
+class Faq(View):
+    def get(self, request):
+        return render(request, 'shop/faq.html')
+
+
 class TdataInfo(View):
     def get(self, request):
         return render(request, 'shop/tdata_info.html')
+
+
+class PhoneInfo(View):
+    def get(self, request):
+        return render(request, 'shop/phone_info.html')
 
 
 class BalanceDetail(View):
