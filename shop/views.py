@@ -51,7 +51,7 @@ class FormatProductsList(View):
     def get(self, request, slug):
         format = Format.objects.get(slug=slug)
         products = Product.objects.filter(format__id=format.id).order_by('-amount')
-        return render(request, 'shop/format_products_list.html', context={'products': products})
+        return render(request, 'shop/format_products_list.html', context={'products': products, 'format': format})
 
 
 class CountriesList(View):
