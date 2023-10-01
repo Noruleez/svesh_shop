@@ -64,7 +64,7 @@ class CountryProductsList(View):
     def get(self, request, slug):
         country = Country.objects.get(slug=slug)
         products = Product.objects.filter(country__id=country.id).order_by('-amount')
-        return render(request, 'shop/country_products_list.html', context={'products': products})
+        return render(request, 'shop/country_products_list.html', context={'products': products, 'country': country})
 
 
 class ProductsList(View):
