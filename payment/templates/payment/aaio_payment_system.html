@@ -13,32 +13,32 @@
                         <h3>Aaio Оплата</h3>
                     </div>
                 </div>
-                    <div class="card-body">
-                        <div class="text-center">
-                            {% if request.user.is_authenticated %}
-                                <form method="post" action="{% url 'aaio_payment_system_url' %}">
-                                    {% csrf_token %}
-                                    {% for field in form %}
-                                        <div class="form-group">
-                                            {% if field.errors %}
-                                                <div class="alert alert-danger">
-                                                    {{ field.errors }}
-                                                </div>
-                                            {% endif %}
-                                            <h5>Введите сумму пополнения</h5>
-                                            <p>{{ field }}</p>
-                                        </div>
-                                    {% endfor %}
-                                    <div class="mt-5">
-                                        <p>{{ error_payment_amount }}</p>
-                                        <button type="submit" class="btn btn-outline-success">Пополнить</button>
+                <div class="card-body">
+                    <div class="text-center">
+                        {% if request.user.is_authenticated %}
+                            <form method="post" action="{% url 'aaio_payment_system_url' %}">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        {% if field.errors %}
+                                            <div class="alert alert-danger">
+                                                {{ field.errors }}
+                                            </div>
+                                        {% endif %}
+                                        <h5>Введите сумму пополнения</h5>
+                                        <p>{{ field }}</p>
                                     </div>
-                                </form>
-                            {% else %}
-                                <a href="{% url 'account_login' %}" class="btn btn-outline-success">Для пополнения баланса войдите/зарегистрируйтесь</a>
-                            {% endif %}
-                        </div>
+                                {% endfor %}
+                                <div class="mt-5">
+                                    <p>{{ error_payment_amount }}</p>
+                                    <button type="submit" class="btn btn-outline-success">Пополнить</button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <a href="{% url 'account_login' %}" class="btn btn-outline-success">Для пополнения баланса войдите/зарегистрируйтесь</a>
+                        {% endif %}
                     </div>
+                </div>
             </div>
         </div>
     </div>
