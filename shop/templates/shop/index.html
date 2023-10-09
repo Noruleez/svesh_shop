@@ -69,20 +69,20 @@
                         <p class="card-text">
                             <ol>
                                 <li>
-                                    1) Выберите Telegram аккаунт с нужными параметрами в списке товаров и нажмите купить.
+                                    Выберите Telegram аккаунт с нужными параметрами в списке товаров и нажмите купить.
                                     <img src="{% static 'images/buy_account_step1.png' %}" alt="buy account guide step1" width="700" height="350">
                                 </li>
                                 <li>
-                                    2) Введите количество аккаунтов, которое хотите приобрести.
+                                    Введите количество аккаунтов, которое хотите приобрести и нажмите купить.
                                     <img src="{% static 'images/buy_account_step2.png' %}" alt="buy account guide step1" width="700" height="350">
+                                    <img src="{% static 'images/buy_account_step3.png' %}" alt="buy account guide step1" width="700" height="350">
                                 </li>
                                 <li>
-                                    3) <a href="{% url 'choose_payment_system_url' %}" class="change-color-link">Пополните баланс</a> на необходимую сумму и нажмите купить.
-                                    <img src="{% static 'images/buy_account_step3.png' %}" alt="buy account guide step1" width="700" height="350">
+                                    Если вам не хватает денег на балансе, <a href="{% url 'choose_payment_system_url' %}" class="change-color-link">пополните баланс</a> на необходимую сумму и нажмите купить.
                                     <img src="{% static 'images/buy_account_step4.png' %}" alt="buy account guide step1" width="700" height="350">
                                 </li>
                                 <li>
-                                    4) После покупки вы получите ссылку на скачивание в разделе <a href="{% url 'purchases_list_url' %}" class="change-color-link">ваших заказов.</a>
+                                    После покупки вы получите ссылку на скачивание в разделе <a href="{% url 'purchases_list_url' %}" class="change-color-link">ваших заказов.</a>
                                     <img src="{% static 'images/buy_account_step5.png' %}" alt="buy account guide step1" width="700" height="350">
                                 </li>
                             </ol>
