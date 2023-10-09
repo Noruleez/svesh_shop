@@ -1,14 +1,14 @@
 <div class="change-block col-6 mb-5">
     <div class="card border-dark">
         <div class="card-header border-dark">
-            <h2 class="text-center text-decoration-none mt-2">{{ product.country.title }} - {{ product.format.title }} </h2>
+            <h2 class="text-center text-muted mt-2">{{ product.country.title }} - {{ product.format.title }} </h2>
         </div>
         <div class="card-body">
             <p class="card-text border-bottom">Отлежка/дней - {{ product.delay }}</p>
             <p class="card-text border-bottom">Осталось - {{ product.amount }} шт.</p>
             <p class="card-text border-bottom">Цена/аккаунт - {{ product.price }} руб.</p>
             <div class="text-center">
-                <a href="{{ product.get_absolute_url }}" class="btn btn-outline-success mt-2 mb-2">Купить</a>
+                <a href="{{ product.get_absolute_url }}" class="btn btn-outline-success mt-2 mb-2 text-reset">Купить</a>
             </div>
         </div>
     </div>
