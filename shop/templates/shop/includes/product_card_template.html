@@ -1,11 +1,9 @@
 <div class="change-block col-6 mb-5">
     <div class="card border-dark">
         <div class="card-header">
-            <h2 class="card-header border-dark">{{ product.country }} - {{ product.format }} </h2>
+            <h2 class="card-header border-dark">{{ product.country.title }} - {{ product.format.title }} </h2>
         </div>
         <div class="card-body">
-            <p class="card-text border-bottom">Страна регистрации - {{ product.country.title }}</p>
-            <p class="card-text border-bottom">Формат - {{ product.format.title }}</p>
             <p class="card-text border-bottom">Отлежка(в днях) - {{ product.delay }}</p>
             <p class="card-text border-bottom">Осталось - {{ product.amount }} шт.</p>
             <p class="card-text border-bottom">Цена за 1 телеграмм аккаунт - {{ product.price }} руб.</p>
