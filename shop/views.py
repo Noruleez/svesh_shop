@@ -9,7 +9,7 @@ from .utils import ObjectDetailMixin
 
 
 class RobotsTxtView(TemplateView):
-    template_name = 'robots.txt'
+    template_name = 'shop/robots.txt'
     content_type = 'text/plain'
 
 class AboutOurProject(View):
