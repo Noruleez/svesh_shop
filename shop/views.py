@@ -8,6 +8,11 @@ from .forms import PurchaseForm
 from .utils import ObjectDetailMixin
 
 
+class RobotsTxt(View):
+    def get(self, request):
+        return render(request, 'shop/robots.txt')
+
+
 class AboutOurProject(View):
     def get(self, request):
         return render(request, 'shop/about_our_project.html')

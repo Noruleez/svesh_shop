@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /format/
+Disallow: /country/
+Host: sveshshop.ru/
+Sitemap: https://sveshshop.ru/sitemap.xml
