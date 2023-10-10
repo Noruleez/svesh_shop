@@ -19,14 +19,19 @@
             <div class="col-2">
             </div>
         </div>
+    </div>
     
-        <div class="row p-5 mt-5 mb-5">
-            {% if products %}
-                {% for product in products %}
-                    {% include 'shop/includes/product_card_template.html' %}
-                {% endfor %}
-            {% endif %}
+    <div class="bg-light">
+        <div class="container">
+            <div class="row p-5 mt-5 mb-5">
+                {% if products %}
+                    {% for product in products %}
+                        {% include 'shop/includes/product_card_template.html' %}
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
+    <div class="">
         
         <div class="row mt-5 mb-5">
             
