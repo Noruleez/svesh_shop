@@ -12,6 +12,12 @@ class RobotsTxtView(TemplateView):
     template_name = 'shop/robots.txt'
     content_type = 'text/plain'
 
+
+class SitemapXmlView(TemplateView):
+    template_name = 'shop/sitemap.xml.txt'
+    content_type = 'application/xml'
+
+
 class AboutOurProject(View):
     def get(self, request):
         return render(request, 'shop/about_our_project.html')

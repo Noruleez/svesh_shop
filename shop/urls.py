@@ -26,6 +26,7 @@ urlpatterns = [
     path('rules/', Rules.as_view(), name='rules_url'),
 
     path('robots.txt', RobotsTxtView.as_view()),
+    path('sitemap.xml', SitemapXmlView.as_view()),
 
     # path('doc-offer-agreement/', DocOfferAgreement.as_view(), name='doc_offer_agreement_url'),
     # path('doc-payment-back/', DocPaymentBack.as_view(), name='doc_payment_back_url'),
