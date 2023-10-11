@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /format/
 Disallow: /country/
+Disallow: /accounts/
 Host: sveshshop.ru/
 Sitemap: https://sveshshop.ru/sitemap.xml
