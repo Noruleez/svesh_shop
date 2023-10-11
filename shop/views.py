@@ -14,7 +14,7 @@ class RobotsTxtView(TemplateView):
 
 
 class SitemapXmlView(TemplateView):
-    template_name = 'shop/sitemap.xml.txt'
+    template_name = 'shop/sitemap.xml'
     content_type = 'application/xml'
 
 
