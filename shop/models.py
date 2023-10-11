@@ -25,6 +25,7 @@ class Format(models.Model):
 
 class Country(models.Model):
     title = models.CharField(max_length=150, db_index=True)
+    description = models.CharField(max_length=300)
     slug = models.SlugField(max_length=150, unique=True)
 
     def get_absolute_url(self):
