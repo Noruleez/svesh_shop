@@ -7,16 +7,14 @@
 {% block content %}
     <div class="container">
         <div class="col">
-            <div class="card mt-5">
-                <div class="card-header">
-                </div>
-                <div class="card-body">
-                    <div class="text-center">
-                        <p class="card-text border-bottom">Оплата прошла</p>
-                        <p> {{ order_id }} </p>
+            <div class="card mt-5 border-dark">
+                <div class="text-center">
+                    <div class="card-header border-dark">
+                        <h3>Успешное пополнение!</h3>
                     </div>
-                </div>
-                <div class="card-footer">
+                    <div class="card-body">
+                        <h5 class="card-text">На ваш аккаунт - {{ user_email }} зачислено {{ amount }} руб.</h5>
+                    </div>
                 </div>
             </div>
         </div>

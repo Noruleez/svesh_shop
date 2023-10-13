@@ -7,15 +7,15 @@
 {% block content %}
     <div class="container">
         <div class="col">
-            <div class="card mt-5">
-                <div class="card-header">
-                </div>
+            <div class="card mt-5 border-dark">
                 <div class="card-body">
                     <div class="text-center">
-                        <p class="card-text border-bottom">Оплата не прошла</p>
+                        {% if user.is_authenticated %}
+                            <h4 class="card-text">Оплата не прошла</h4>
+                        {% else %}
+                            <a href="{% url 'account_login' %}" class="btn btn-outline-success">Для пополнения баланса войдите/зарегистрируйтесь</a>
+                        {% endif %}
                     </div>
-                </div>
-                <div class="card-footer">
                 </div>
             </div>
         </div>
