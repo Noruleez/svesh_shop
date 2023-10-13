@@ -60,13 +60,34 @@ class FreeKassaPaymentSystem(View):
         bound_form = FreeKassaPaymentForm(request.POST)
         if bound_form.is_valid():
             new_form = bound_form.save(commit=False)
-            if len(FreeKassaPaymentStatus.objects.filter(user=request.user)) == 1:
-                already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user)
+            if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
+                already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
                 FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             else:
                 FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-        return redirect('/payment/freekassa-payment-system-status/')
+            return redirect('/payment/freekassa-payment-system-status/')
+        else:
+            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
+
+
+class AaioPaymentSystem(View):
+    def get(self, request):
+        form = AaioPaymentForm()
+        return render(request, 'payment/aaio_payment_system.html', context={'form': form})
+    def post(self, request):
+        bound_form = AaioPaymentForm(request.POST)
+        if bound_form.is_valid():
+            new_form = bound_form.save(commit=False)
+            if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
+                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+                already_exists_payment.delete()
+                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            else:
+                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            return redirect('/payment/aaio-payment-system-status/')
+        else:
+            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
 
 
 class FreeKassaPaymentSystemStatus(View):
@@ -92,58 +113,6 @@ class FreeKassaPaymentSystemStatus(View):
 
         url = "https://pay.freekassa.ru/?" + urlencode(params)
         return redirect(url)
-
-
-@method_decorator(csrf_exempt, name='dispatch')
-class AaioNotify(View):
-    def get(self, request):
-        return render(request, 'payment/aaio_notify.html')
-    def post(self, request):
-        order_id = request.POST["order_id"]
-        amount = request.POST["amount"]
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
-        user_balance = Balance.objects.get(user=user_id)
-        user_balance.amount = user_balance.amount + Decimal(amount)
-        user_balance.save()
-        payment.status = "SuccessPayment"
-        payment.save()
-        return render(request, 'payment/aaio_notify.html')
-
-
-class AaioSuccess(View):
-    pass
-    def get(self, request):
-        order_id = request.GET.get("order_id")
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
-        user_email = (User.objects.get(id=user_id)).email
-        amount = request.GET.get("amount")
-        return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
-
-
-class AaioFail(View):
-    def get(self, request):
-        return render(request, 'payment/aaio_fail.html')
-
-
-class AaioPaymentSystem(View):
-    def get(self, request):
-        form = AaioPaymentForm()
-        return render(request, 'payment/aaio_payment_system.html', context={'form': form})
-    def post(self, request):
-        bound_form = AaioPaymentForm(request.POST)
-        if bound_form.is_valid():
-            new_form = bound_form.save(commit=False)
-            if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
-                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
-                already_exists_payment.delete()
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-            else:
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-            return redirect('/payment/aaio-payment-system-status/')
-        else:
-            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
 
 
 class AaioPaymentSystemStatus(View):
@@ -181,3 +150,36 @@ class AaioPaymentSystemStatus(View):
         url = "https://aaio.io/merchant/pay?" + urlencode(params)
 
         return redirect(url)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AaioNotify(View):
+    def get(self, request):
+        return render(request, 'payment/aaio_notify.html')
+    def post(self, request):
+        order_id = request.POST["order_id"]
+        amount = request.POST["amount"]
+        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        user_id = payment.user.id
+        user_balance = Balance.objects.get(user=user_id)
+        user_balance.amount = user_balance.amount + Decimal(amount)
+        user_balance.save()
+        payment.status = "SuccessPayment"
+        payment.save()
+        return render(request, 'payment/aaio_notify.html')
+
+
+class AaioSuccess(View):
+    pass
+    def get(self, request):
+        order_id = request.GET.get("order_id")
+        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        user_id = payment.user.id
+        user_email = (User.objects.get(id=user_id)).email
+        amount = request.GET.get("amount")
+        return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
+
+
+class AaioFail(View):
+    def get(self, request):
+        return render(request, 'payment/aaio_fail.html')
