@@ -61,12 +61,12 @@ class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
         if request.user.is_anonymous or len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
             return redirect('/')
-
         user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+
         order_amount = f'{user_payment.amount}'
         merchant_id = '35421'
         currency = 'RUB'
-        order_id = f'{user_payment.user}'
+        order_id = f'{user_payment.pk}'
         secret_word = 'wrRI*,Y}nau9Z4O'
         sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
 
@@ -156,8 +156,8 @@ class AaioNotify(View):
 
 class FreeKassaSuccess(View):
     def get(self, request):
-        order_id = request.GET.get("order_id")
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
+        order_id = request.GET.get("MERCHANT_ORDER_ID")
+        payment = FreeKassaPaymentStatus.objects.get(pk=int(order_id))
         user_id = payment.user.id
         user_email = (User.objects.get(id=user_id)).email
         amount = request.GET.get("amount")
