@@ -125,8 +125,8 @@ class FreeKassaNotify(View):
         return render(request, 'payment/freekassa_notify.html')
 
     def post(self, request):
-        order_id = request.POST["order_id"]
-        amount = request.POST["amount"]
+        order_id = request.POST["MERCHANT_ID"]
+        amount = request.POST["AMOUNT"]
         payment = FreeKassaPaymentStatus.objects.get(pk=int(order_id))
         user_id = payment.user.id
         user_balance = Balance.objects.get(user=user_id)
@@ -160,7 +160,7 @@ class FreeKassaSuccess(View):
         payment = FreeKassaPaymentStatus.objects.get(pk=int(order_id))
         user_id = payment.user.id
         user_email = (User.objects.get(id=user_id)).email
-        amount = request.GET.get("amount")
+        amount = payment.amount
         return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
 
 
