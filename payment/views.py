@@ -73,6 +73,7 @@ class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
         if request.user.is_anonymous or len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
             return redirect('/')
+
         user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
         order_amount = f'{user_payment.amount}'
         merchant_id = '35421'
@@ -80,6 +81,7 @@ class FreeKassaPaymentSystemStatus(View):
         order_id = f'{user_payment.user}'
         secret_word = 'wrRI*,Y}nau9Z4O'
         sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
+
         params = {
             'm': merchant_id,
             'oa': order_amount,
@@ -90,7 +92,6 @@ class FreeKassaPaymentSystemStatus(View):
 
         url = "https://pay.freekassa.ru/?" + urlencode(params)
         return redirect(url)
-        #return render(request, 'payment/freekassa_payment_system_status.html', params)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
