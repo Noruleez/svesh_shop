@@ -125,7 +125,7 @@ class FreeKassaNotify(View):
         return render(request, 'payment/freekassa_notify.html')
 
     def post(self, request):
-        order_id = request.POST["MERCHANT_ID"]
+        order_id = request.POST["MERCHANT_ORDER_ID"]
         amount = request.POST["AMOUNT"]
         payment = FreeKassaPaymentStatus.objects.get(pk=int(order_id))
         user_id = payment.user.id
