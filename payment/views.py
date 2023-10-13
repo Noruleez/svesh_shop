@@ -80,14 +80,17 @@ class FreeKassaPaymentSystemStatus(View):
         order_id = f'{user_payment.user}'
         secret_word = 'wrRI*,Y}nau9Z4O'
         sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
-        context = {
+        params = {
             'm': merchant_id,
             'oa': order_amount,
             'o': order_id,
             's': sign,
             'currency': currency
         }
-        return render(request, 'payment/freekassa_payment_system_status.html', context)
+
+        url = "https://pay.freekassa.ru/?" + urlencode(params)
+        return redirect(url)
+        #return render(request, 'payment/freekassa_payment_system_status.html', params)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
