@@ -9,7 +9,7 @@ class FreeKassaPaymentForm(forms.ModelForm):
     amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}), validators=[MaxValueValidator(10000),
                                                                                                                MinValueValidator(1)])
     class Meta:
-        model = AaioPaymentStatus
+        model = FreeKassaPaymentStatus
         fields = ['amount']
 
 
