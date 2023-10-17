@@ -15,10 +15,12 @@ from decimal import *
 class ChoosePaymentSystem(TemplateView):
     template_name = 'payment/choose_payment_system.html'
 
+
 class FreeKassaPaymentSystem(View):
     def get(self, request):
         form = FreeKassaPaymentForm()
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
+
     def post(self, request):
         bound_form = FreeKassaPaymentForm(request.POST)
         if bound_form.is_valid():
@@ -38,6 +40,7 @@ class AaioPaymentSystem(View):
     def get(self, request):
         form = AaioPaymentForm()
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
+
     def post(self, request):
         bound_form = AaioPaymentForm(request.POST)
         if bound_form.is_valid():
@@ -55,7 +58,8 @@ class AaioPaymentSystem(View):
 
 class FreeKassaPaymentSystemStatus(View):
     def get(self, request):
-        if request.user.is_anonymous or len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
+        if request.user.is_anonymous or len(
+                FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
             return redirect('/')
         user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
 
@@ -80,7 +84,8 @@ class FreeKassaPaymentSystemStatus(View):
 
 class AaioPaymentSystemStatus(View):
     def get(self, request):
-        if request.user.is_anonymous or len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
+        if request.user.is_anonymous or len(
+                AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
             return redirect('/')
         user_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
 
@@ -137,6 +142,7 @@ class FreeKassaNotify(View):
 class AaioNotify(View):
     def get(self, request):
         return render(request, 'payment/aaio_notify.html')
+
     def post(self, request):
         order_id = request.POST["order_id"]
         amount = request.POST["amount"]
@@ -170,11 +176,10 @@ class AaioSuccess(View):
         return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
 
 
-class FreeKassaFail(View):
-    def get(self, request):
-        return render(request, 'payment/freekassa_fail.html')
+class FreeKassaFail(TemplateView):
+    template_name = 'payment/freekassa_fail.html'
 
 
-class AaioFail(View):
-    def get(self, request):
-        return render(request, 'payment/aaio_fail.html')
+class AaioFail(TemplateView):
+    template_name = 'payment/aaio_fail.html'
+    
