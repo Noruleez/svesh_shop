@@ -38,8 +38,8 @@ class FreeKassaPaymentSystem(View):
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
     def post(self, request):
-        payment_create_process(request, form=FreeKassaPaymentForm, model=FreeKassaPaymentStatus,
-                               payment_system_name_for_template='freekassa')
+        return payment_create_process(request, form=FreeKassaPaymentForm, model=FreeKassaPaymentStatus,
+                                      payment_system_name_for_template='freekassa')
 
 
 class AaioPaymentSystem(View):
