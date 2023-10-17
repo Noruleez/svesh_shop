@@ -130,7 +130,7 @@ class PurchasesList(View):
     def get(self, request):
         if request.user.is_anonymous:
             return render(request, 'shop/purchases_list.html')
-        purchases = Purchase.objects.filter(user=request.user).order_by('date_time_create')
+        purchases = Purchase.objects.filter(user=request.user).order_by('-date_time_create')
         return render(request, 'shop/purchases_list.html', context={'purchases': purchases})
 
 
