@@ -28,7 +28,7 @@ def payment_create_process(request, form, model, payment_system_name_for_templat
             model.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
         return redirect(f'/payment/{payment_system_name_for_template}-payment-system-status/')
     else:
-        return render(request, f'payment/{payment_system_name_for_template}-payment-system.html',
+        return render(request, f'payment/{payment_system_name_for_template}_payment_system.html',
                       context={'form': bound_form})
 
 
