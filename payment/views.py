@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
 from django.contrib.auth.models import User
 from .models import FreeKassaPaymentStatus, AaioPaymentStatus
-from accounts_shop.shop.models import Balance
+from shop.models import Balance
 from .forms import FreeKassaPaymentForm, AaioPaymentForm
 import hashlib
 from hashlib import md5
