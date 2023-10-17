@@ -18,29 +18,24 @@ class SitemapXmlView(TemplateView):
     content_type = 'application/xml'
 
 
-class AboutOurProject(View):
-    def get(self, request):
-        return render(request, 'shop/about_our_project.html')
+class AboutOurProject(TemplateView):
+    template_name = 'shop/about_our_project.html'
 
 
-class Rules(View):
-    def get(self, request):
-        return render(request, 'shop/rules.html')
+class Rules(TemplateView):
+    template_name = 'shop/rules.html'
 
 
-class Faq(View):
-    def get(self, request):
-        return render(request, 'shop/faq.html')
+class Faq(TemplateView):
+    template_name = 'shop/faq.html'
 
 
-class TdataInfo(View):
-    def get(self, request):
-        return render(request, 'shop/tdata_info.html')
+class TdataInfo(TemplateView):
+    template_name = 'shop/tdata_info.html'
 
 
-class PhoneInfo(View):
-    def get(self, request):
-        return render(request, 'shop/phone_info.html')
+class PhoneInfo(TemplateView):
+    template_name = 'shop/phone_info.html'
 
 
 class BalanceDetail(View):
@@ -153,17 +148,3 @@ class PurchaseLinksList(View):
         links = PurchaseLink.objects.filter(purchase__id=purchase.id)
         return render(request, 'shop/purchase_links_list.html', context={'links': links})
 
-
-# class DocOfferAgreement(View):
-#     def get(self, request):
-#         return render(request, 'shop/doc_offer_agreement.html')
-#
-#
-# class DocPaymentBack(View):
-#     def get(self, request):
-#         return render(request, 'shop/doc_payment_back.html')
-#
-#
-# class DocPrivacyPolicy(View):
-#     def get(self, request):
-#         return render(request, 'shop/doc_privacy_policy.html')
