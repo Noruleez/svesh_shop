@@ -21,7 +21,7 @@ def payment_create_process(request, form, model, payment_system_name_for_templat
     if bound_form.is_valid():
         new_form = bound_form.save(commit=False)
         if len(model.objects.filter(user=request.user, status='WaitPayment')) == 1:
-            already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+            already_exists_payment = model.objects.get(user=request.user, status='WaitPayment')
             already_exists_payment.delete()
             model.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
         else:
