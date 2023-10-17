@@ -101,10 +101,12 @@ class ProductDetail(View):
             # Check balance
             user_balance = Balance.objects.get(user=request.user).amount
             if user_balance < new_purchase.amount * product.price:
-                error_balance = f'Вам не хватает {new_purchase.amount * product.price - user_balance} руб., пополните баланс'
+                error_balance = f'Вам не хватает \
+                                  {new_purchase.amount * product.price - user_balance} руб., пополните баланс'
                 return render(request, 'shop/product_detail.html', context={'product': product,
                                                                             'error_balance': error_balance,
-                                                                            'form': bound_purchase_form})
+                                                                            'form': bound_purchase_form}
+                              )
             new_purchase.product = product
             new_purchase.user = request.user
             new_purchase = bound_purchase_form.save()
