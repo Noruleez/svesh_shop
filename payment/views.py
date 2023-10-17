@@ -33,7 +33,7 @@ class FreeKassaPaymentSystem(View):
                 FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             return redirect('/payment/freekassa-payment-system-status/')
         else:
-            return render(request, 'payment/freekassa-payment-system.html', context={'form': bound_form})
+            return render(request, 'payment/freekassa_payment_system.html', context={'form': bound_form})
 
 
 class AaioPaymentSystem(View):
