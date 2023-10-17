@@ -48,18 +48,8 @@ class AaioPaymentSystem(View):
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
     def post(self, request):
-        bound_form = AaioPaymentForm(request.POST)
-        if bound_form.is_valid():
-            new_form = bound_form.save(commit=False)
-            if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
-                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
-                already_exists_payment.delete()
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-            else:
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-            return redirect('/payment/aaio-payment-system-status/')
-        else:
-            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
+        return payment_create_process(request, form=AaioPaymentForm, model=AaioPaymentStatus,
+                                      payment_system_name_for_template='aaio')
 
 
 class FreeKassaPaymentSystemStatus(View):
