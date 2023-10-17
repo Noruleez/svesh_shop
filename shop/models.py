@@ -1,9 +1,8 @@
 from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
-from time import time
-
 from django.contrib.auth.models import User
+from time import time
 
 
 def gen_slug(s):

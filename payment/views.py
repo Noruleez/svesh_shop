@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
-from django.views.generic import View
-from django.core.exceptions import ValidationError
-from django.contrib.auth.models import AnonymousUser
-from .models import *
-from shop.models import *
-from .forms import *
+from django.views.generic import View, TemplateView
+from django.contrib.auth.models import User
+from .models import FreeKassaPaymentStatus, AaioPaymentStatus
+from ..shop.models import Balance
+from .forms import FreeKassaPaymentForm, AaioPaymentForm
 import hashlib
 from hashlib import md5
 from django.views.decorators.csrf import csrf_exempt
@@ -14,10 +12,8 @@ from urllib.parse import urlencode
 from decimal import *
 
 
-class ChoosePaymentSystem(View):
-    def get(self, request):
-        return render(request, 'payment/choose_payment_system.html')
-
+class ChoosePaymentSystem(TemplateView):
+    template_name = 'payment/choose_payment_system.html'
 
 class FreeKassaPaymentSystem(View):
     def get(self, request):

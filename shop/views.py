@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import View, TemplateView
-from django.core.exceptions import ValidationError
-
 from .models import Product, Format, Country, Purchase, PurchaseLink, ProductLink, Balance
 from .forms import PurchaseForm
-from .utils import ObjectDetailMixin
 
 
 class RobotsTxtView(TemplateView):
@@ -79,9 +76,6 @@ class ProductsList(View):
 
 
 class ProductDetail(View):
-    # ObjectDetailMixin
-    # model = Product
-    # template = 'shop/product_detail.html'
     def get(self, request, slug):
         product = get_object_or_404(Product, slug=slug)
         form = PurchaseForm()
