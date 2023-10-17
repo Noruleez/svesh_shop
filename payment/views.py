@@ -16,30 +16,24 @@ class ChoosePaymentSystem(TemplateView):
     template_name = 'payment/choose_payment_system.html'
 
 
-def payment_create_process(request, form, model, payment_system_name_for_template):
-    bound_form = form(request.POST)
-    if bound_form.is_valid():
-        new_form = bound_form.save(commit=False)
-        if len(model.objects.filter(user=request.user, status='WaitPayment')) == 1:
-            already_exists_payment = model.objects.get(user=request.user, status='WaitPayment')
-            already_exists_payment.delete()
-            model.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-        else:
-            model.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-        return redirect(f'/payment/{payment_system_name_for_template}-payment-system-status/')
-    else:
-        return render(request, f'payment/{payment_system_name_for_template}_payment_system.html',
-                      context={'form': bound_form})
-
-
 class FreeKassaPaymentSystem(View):
     def get(self, request):
         form = FreeKassaPaymentForm()
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
     def post(self, request):
-        return payment_create_process(request, form=FreeKassaPaymentForm, model=FreeKassaPaymentStatus,
-                                      payment_system_name_for_template='freekassa')
+        bound_form = FreeKassaPaymentForm(request.POST)
+        if bound_form.is_valid():
+            new_form = bound_form.save(commit=False)
+            if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
+                already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+                already_exists_payment.delete()
+                FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            else:
+                FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            return redirect('/payment/freekassa-payment-system-status/')
+        else:
+            return render(request, 'payment/freekassa-payment-system.html', context={'form': bound_form})
 
 
 class AaioPaymentSystem(View):
@@ -48,8 +42,18 @@ class AaioPaymentSystem(View):
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
     def post(self, request):
-        return payment_create_process(request, form=AaioPaymentForm, model=AaioPaymentStatus,
-                                      payment_system_name_for_template='aaio')
+        bound_form = AaioPaymentForm(request.POST)
+        if bound_form.is_valid():
+            new_form = bound_form.save(commit=False)
+            if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
+                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+                already_exists_payment.delete()
+                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            else:
+                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+            return redirect('/payment/aaio-payment-system-status/')
+        else:
+            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
 
 
 class FreeKassaPaymentSystemStatus(View):
