@@ -11,8 +11,8 @@ urlpatterns = [
     re_path(r'^freekassa-success\w*', FreeKassaSuccess.as_view(), name='freekassa_success_url'),
     re_path(r'^freekassa-fail\w*', FreeKassaFail.as_view(), name='freekassa_fail_url'),
     path('freekassa-payment-system/', FreeKassaPaymentSystem.as_view(), name='freekassa_payment_system_url'),
-    path('freekassa-payment-system-status/', FreeKassaPaymentSystemStatus.as_view(),
-         name='freekassa_payment_system_status_url'),
+    # path('freekassa-payment-system-status/', FreeKassaPaymentSystemStatus.as_view(),
+    #      name='freekassa_payment_system_status_url'),
 
 
     re_path(r'^aaio-notify\w*', AaioNotify.as_view(), name='aaio_notify_url'),

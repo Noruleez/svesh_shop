@@ -37,9 +37,8 @@ def save_data_about_payment(request, form, instance_model):
         create_payment(request, instance_model, amount)
 
 
-def get_payment_system_redirect_url(instance_model):
+def get_payment_system_redirect_url(request, instance_model):
     user_payment = instance_model.objects.get(user=request.user, status='WaitPayment')
-
     order_amount = f'{user_payment.amount}'
     merchant_id = '35421'
     currency = 'RUB'
@@ -74,7 +73,7 @@ class FreeKassaPaymentSystem(View):
         instance_model = FreeKassaPaymentStatus
         if form.is_valid():
             save_data_about_payment(request, form, instance_model)
-            return redirect(get_payment_system_redirect_url(instance_model))
+            return redirect(get_payment_system_redirect_url(request, instance_model))
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
 
