@@ -56,6 +56,35 @@ def get_freekassa_redirect_url(request, instance_model):
     return f'https://pay.freekassa.ru/?{urlencode(params)}'
 
 
+def get_aaio_redirect_url(request, instance_model):
+    user_payment = instance_model.objects.get(user=request.user, status='WaitPayment')
+    merchant_id = 'ed4b0f81-7e27-4312-a2d0-4bb9f984732b'  # ID Вашего магазина
+    amount = user_payment.amount  # Сумма к оплате
+    currency = 'RUB'  # Валюта заказа
+    secret = 'd8122ab1c6c4cdc29e9f1cb604bafc4a'  # Секретный ключ №1
+    order_id = f'{user_payment.pk}'  # Идентификатор заказа в Вашей системе
+    desc = 'Order Payment'  # Описание заказа
+    lang = 'ru'  # Язык формы
+    sign = f':'.join([
+        str(merchant_id),
+        str(amount),
+        str(currency),
+        str(secret),
+        str(order_id)
+    ])
+    params = {
+        'merchant_id': merchant_id,
+        'amount': amount,
+        'currency': currency,
+        'order_id': order_id,
+        'sign': hashlib.sha256(sign.encode('utf-8')).hexdigest(),
+        'desc': desc,
+        'lang': lang
+    }
+
+    return f'https://aaio.io/merchant/pay?{urlencode(params)}'
+
+
 """ Services-end """
 
 
@@ -84,55 +113,69 @@ class AaioPaymentSystem(View):
 
     def post(self, request):
         form = AaioPaymentForm(request.POST)
+        instance_model = AaioPaymentStatus
         if form.is_valid():
-            new_form = form.save(commit=False)
-            if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
-                already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
-                already_exists_payment.delete()
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-            else:
-                AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
-            return redirect('/payment/aaio-payment-system-status/')
-        else:
-            return render(request, 'payment/aaio_payment_system.html', context={'form': form})
+            save_data_about_payment(request, form, instance_model)
+            return redirect(get_aaio_redirect_url(request, instance_model))
+        return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
 
-class AaioPaymentSystemStatus(View):
-    def get(self, request):
-        if request.user.is_anonymous or len(
-                AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
-            return redirect('/')
-        user_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
-
-        merchant_id = 'ed4b0f81-7e27-4312-a2d0-4bb9f984732b'  # ID Вашего магазина
-        amount = user_payment.amount  # Сумма к оплате
-        currency = 'RUB'  # Валюта заказа
-        secret = 'd8122ab1c6c4cdc29e9f1cb604bafc4a'  # Секретный ключ №1
-        order_id = f'{user_payment.pk}'  # Идентификатор заказа в Вашей системе
-        desc = 'Order Payment'  # Описание заказа
-        lang = 'ru'  # Язык формы
-
-        sign = f':'.join([
-            str(merchant_id),
-            str(amount),
-            str(currency),
-            str(secret),
-            str(order_id)
-        ])
-
-        params = {
-            'merchant_id': merchant_id,
-            'amount': amount,
-            'currency': currency,
-            'order_id': order_id,
-            'sign': hashlib.sha256(sign.encode('utf-8')).hexdigest(),
-            'desc': desc,
-            'lang': lang
-        }
-
-        url = "https://aaio.io/merchant/pay?" + urlencode(params)
-
-        return redirect(url)
+# class AaioPaymentSystem(View):
+#     def get(self, request):
+#         form = AaioPaymentForm()
+#         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
+#
+#     def post(self, request):
+#         form = AaioPaymentForm(request.POST)
+#         if form.is_valid():
+#             new_form = form.save(commit=False)
+#             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
+#                 already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+#                 already_exists_payment.delete()
+#                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+#             else:
+#                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
+#             return redirect('/payment/aaio-payment-system-status/')
+#         else:
+#             return render(request, 'payment/aaio_payment_system.html', context={'form': form})
+#
+#
+# class AaioPaymentSystemStatus(View):
+#     def get(self, request):
+#         if request.user.is_anonymous or len(
+#                 AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
+#             return redirect('/')
+#         user_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
+#
+#         merchant_id = 'ed4b0f81-7e27-4312-a2d0-4bb9f984732b'  # ID Вашего магазина
+#         amount = user_payment.amount  # Сумма к оплате
+#         currency = 'RUB'  # Валюта заказа
+#         secret = 'd8122ab1c6c4cdc29e9f1cb604bafc4a'  # Секретный ключ №1
+#         order_id = f'{user_payment.pk}'  # Идентификатор заказа в Вашей системе
+#         desc = 'Order Payment'  # Описание заказа
+#         lang = 'ru'  # Язык формы
+#
+#         sign = f':'.join([
+#             str(merchant_id),
+#             str(amount),
+#             str(currency),
+#             str(secret),
+#             str(order_id)
+#         ])
+#
+#         params = {
+#             'merchant_id': merchant_id,
+#             'amount': amount,
+#             'currency': currency,
+#             'order_id': order_id,
+#             'sign': hashlib.sha256(sign.encode('utf-8')).hexdigest(),
+#             'desc': desc,
+#             'lang': lang
+#         }
+#
+#         url = "https://aaio.io/merchant/pay?" + urlencode(params)
+#
+#         return redirect(url)
 
 
 @method_decorator(csrf_exempt, name='dispatch')

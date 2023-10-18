@@ -19,7 +19,7 @@ urlpatterns = [
     re_path(r'^aaio-success\w*', AaioSuccess.as_view(), name='aaio_success_url'),
     re_path(r'^aaio-fail\w*', AaioFail.as_view(), name='aaio_fail_url'),
     path('aaio-payment-system/', AaioPaymentSystem.as_view(), name='aaio_payment_system_url'),
-    path('aaio-payment-system-status/', AaioPaymentSystemStatus.as_view(),
-         name='aaio_payment_system_status_url')
+    # path('aaio-payment-system-status/', AaioPaymentSystemStatus.as_view(),
+    #      name='aaio_payment_system_status_url')
 
 ]
