@@ -4,11 +4,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from decimal import *
-
 from .models import FreeKassaPaymentStatus, AaioPaymentStatus
 from shop.models import Balance
 from .forms import FreeKassaPaymentForm, AaioPaymentForm
-from .services import save_data_about_payment, get_freekassa_redirect_url, get_aaio_redirect_url
+from .services import Payment
 
 
 class ChoosePaymentSystem(TemplateView):
@@ -24,8 +23,8 @@ class FreeKassaPaymentSystem(View):
         form = FreeKassaPaymentForm(request.POST)
         instance_model = FreeKassaPaymentStatus
         if form.is_valid():
-            save_data_about_payment(request, form, instance_model)
-            return redirect(get_freekassa_redirect_url(request, instance_model))
+            Payment.save_data_about_payment(request, form, instance_model)
+            return redirect(Payment.get_freekassa_redirect_url(request, instance_model))
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
 
@@ -38,8 +37,8 @@ class AaioPaymentSystem(View):
         form = AaioPaymentForm(request.POST)
         instance_model = AaioPaymentStatus
         if form.is_valid():
-            save_data_about_payment(request, form, instance_model)
-            return redirect(get_aaio_redirect_url(request, instance_model))
+            Payment.save_data_about_payment(request, form, instance_model)
+            return redirect(Payment.get_aaio_redirect_url(request, instance_model))
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
 
