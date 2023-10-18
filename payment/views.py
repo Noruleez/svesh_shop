@@ -37,7 +37,7 @@ def save_data_about_payment(request, form, instance_model):
         create_payment(request, instance_model, amount)
 
 
-def get_payment_system_redirect_url(request, instance_model):
+def get_freekassa_redirect_url(request, instance_model):
     user_payment = instance_model.objects.get(user=request.user, status='WaitPayment')
     order_amount = f'{user_payment.amount}'
     merchant_id = '35421'
@@ -73,34 +73,8 @@ class FreeKassaPaymentSystem(View):
         instance_model = FreeKassaPaymentStatus
         if form.is_valid():
             save_data_about_payment(request, form, instance_model)
-            return redirect(get_payment_system_redirect_url(request, instance_model))
+            return redirect(get_freekassa_redirect_url(request, instance_model))
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
-
-
-# class FreeKassaPaymentSystemStatus(View):
-#     def get(self, request):
-#         if request.user.is_anonymous or len(
-#                 FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) != 1:
-#             return redirect('/')
-#         user_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
-#
-#         order_amount = f'{user_payment.amount}'
-#         merchant_id = '35421'
-#         currency = 'RUB'
-#         order_id = f'{user_payment.pk}'
-#         secret_word = 'wrRI*,Y}nau9Z4O'
-#         sign = md5(f'{merchant_id}:{order_amount}:{secret_word}:{currency}:{order_id}'.encode('utf-8')).hexdigest()
-#
-#         params = {
-#             'm': merchant_id,
-#             'oa': order_amount,
-#             'o': order_id,
-#             's': sign,
-#             'currency': currency
-#         }
-#
-#         url = "https://pay.freekassa.ru/?" + urlencode(params)
-#         return redirect(url)
 
 
 class AaioPaymentSystem(View):
