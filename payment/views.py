@@ -24,6 +24,7 @@ class FreeKassaPaymentSystem(View):
     def post(self, request):
         form = FreeKassaPaymentForm(request.POST)
         if form.is_valid():
+            amount = form.cleaned_data['amount']
             if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
@@ -34,7 +35,7 @@ class FreeKassaPaymentSystem(View):
         else:
             return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
-        
+
         # if form.is_valid():
         #     new_form = form.save(commit=False)
         #     if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
