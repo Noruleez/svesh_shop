@@ -40,7 +40,7 @@ class AaioPaymentSystem(View):
         if form.is_valid():
             p = Payment()
             p.save_data_about_payment(request, form, instance_model)
-            return redirect(p.get_freekassa_redirect_url(request, instance_model))
+            return redirect(p.get_aaio_redirect_url(request, instance_model))
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
 
