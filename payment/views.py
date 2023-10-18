@@ -22,9 +22,9 @@ class FreeKassaPaymentSystem(View):
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
     def post(self, request):
-        bound_form = FreeKassaPaymentForm(request.POST)
-        if bound_form.is_valid():
-            new_form = bound_form.save(commit=False)
+        form = FreeKassaPaymentForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
             if len(FreeKassaPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = FreeKassaPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
@@ -33,7 +33,7 @@ class FreeKassaPaymentSystem(View):
                 FreeKassaPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             return redirect('/payment/freekassa-payment-system-status/')
         else:
-            return render(request, 'payment/freekassa_payment_system.html', context={'form': bound_form})
+            return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
 
 class AaioPaymentSystem(View):
@@ -42,9 +42,9 @@ class AaioPaymentSystem(View):
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
     def post(self, request):
-        bound_form = AaioPaymentForm(request.POST)
-        if bound_form.is_valid():
-            new_form = bound_form.save(commit=False)
+        form = AaioPaymentForm(request.POST)
+        if form.is_valid():
+            new_form = form.save(commit=False)
             if len(AaioPaymentStatus.objects.filter(user=request.user, status='WaitPayment')) == 1:
                 already_exists_payment = AaioPaymentStatus.objects.get(user=request.user, status='WaitPayment')
                 already_exists_payment.delete()
@@ -53,7 +53,7 @@ class AaioPaymentSystem(View):
                 AaioPaymentStatus.objects.create(user=request.user, amount=new_form.amount, status='WaitPayment')
             return redirect('/payment/aaio-payment-system-status/')
         else:
-            return render(request, 'payment/aaio_payment_system.html', context={'form': bound_form})
+            return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
 
 class FreeKassaPaymentSystemStatus(View):
