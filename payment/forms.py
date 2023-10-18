@@ -14,7 +14,7 @@ from .models import FreeKassaPaymentStatus, AaioPaymentStatus
 
 class FreeKassaPaymentForm(forms.Form):
     amount = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': 'Сумма пополнения'}),
-                                validators=[MaxValueValidator(10000), MinValueValidator(50)])
+                                validators=[MaxValueValidator(10000), MinValueValidator(1)])
 
 
 class AaioPaymentForm(forms.ModelForm):
