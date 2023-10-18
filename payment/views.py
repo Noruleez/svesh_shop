@@ -3,14 +3,11 @@ from django.views.generic import View, TemplateView
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-
 from decimal import *
 
 from .models import FreeKassaPaymentStatus, AaioPaymentStatus
 from shop.models import Balance
-
 from .forms import FreeKassaPaymentForm, AaioPaymentForm
-
 from .services import save_data_about_payment, get_freekassa_redirect_url, get_aaio_redirect_url
 
 
