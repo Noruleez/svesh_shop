@@ -1,9 +1,6 @@
 import hashlib
 from decimal import *
-
 from urllib.parse import urlencode
-
-from accounts_shop.payment.models import AaioPaymentStatus
 from accounts_shop.shop.models import Balance
 
 
