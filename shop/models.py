@@ -86,7 +86,7 @@ class Purchase(models.Model):
 
 class PurchaseLink(models.Model):
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
-    link = models.CharField(max_length=150, db_index=True)
+    link = models.CharField(max_length=150, db_index=True, unique=True)
     slug = models.SlugField(max_length=150, unique=True)
 
     def __str__(self):
