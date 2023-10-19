@@ -75,15 +75,12 @@ class ProductsList(View):
         return render(request, 'shop/index.html', context={'products': products})
 
 
-def check_error_in_form_data(request, form, current_product_amount, purchase_amount, user_balance):
-    error = None
-    if purchase_amount <= 0:
-        error = 'Количество аккаунтов не может быть равным нулю или отрицательным'
-    elif current_product_amount < purchase_amount:
+def check_error_in_form_data(current_product_amount, purchase_amount, user_balance):
+    if current_product_amount < purchase_amount:
         error = f'Аккаунтов осталось {current_product_amount} шт., вы запросили {purchase_amount}'
     elif user_balance < purchase_amount * current_product_amount:
         error = f'Вам не хватает {purchase_amount * current_product_amount - user_balance} руб., пополните баланс'
-    if error is None:
+    else:
         return False
     return error
 
@@ -122,7 +119,7 @@ class ProductDetail(View):
             user_balance = Balance.objects.get(user=purchase_user).amount
             current_product_amount = current_product.amount
 
-            data_error = check_error_in_form_data(request, form, current_product_amount, purchase_amount, user_balance)
+            data_error = check_error_in_form_data(current_product_amount, purchase_amount, user_balance)
             if data_error:
                 return render(request, 'shop/product_detail.html', context={'product': current_product,
                                                                             'error': data_error,
