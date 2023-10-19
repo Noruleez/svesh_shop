@@ -6,7 +6,7 @@ urlpatterns = [
 
     path('choose-payment-system/', ChoosePaymentSystem.as_view(), name='choose_payment_system_url'),
 
-    re_path(r'^freekassa-notify', FreeKassaNotify.as_view(), name='freekassa_notify_url'),
+    re_path(r'^freekassa-notify\w*', FreeKassaNotify.as_view(), name='freekassa_notify_url'),
     re_path(r'^freekassa-success\w*', FreeKassaSuccess.as_view(), name='freekassa_success_url'),
     re_path(r'^freekassa-fail\w*', FreeKassaFail.as_view(), name='freekassa_fail_url'),
     path('freekassa-payment-system/', FreeKassaPaymentSystem.as_view(), name='freekassa_payment_system_url'),
