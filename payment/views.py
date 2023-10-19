@@ -55,7 +55,7 @@ class FreeKassaNotify(View):
                                                         model=FreeKassaPaymentStatus,
                                                         name_payment_system='freekassa')
         return render(request, 'payment/freekassa_notify.html')
-    
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class AaioNotify(View):
