@@ -8,7 +8,7 @@ class PurchaseLogic:
         if current_product_amount < purchase_amount:
             error = f'Аккаунтов осталось {current_product_amount} шт., вы запросили {purchase_amount}'
         elif user_balance < purchase_amount * current_product_price:
-            error = f'Вам не хватает {purchase_amount * current_product_amount - user_balance} руб., пополните баланс'
+            error = f'Вам не хватает {purchase_amount * current_product_price - user_balance} руб., пополните баланс'
         else:
             return False
         return error
