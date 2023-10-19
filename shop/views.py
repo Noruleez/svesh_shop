@@ -92,17 +92,16 @@ class ProductDetail(View):
             current_product_amount = current_product.amount
 
             purchase_object = PurchaseLogic()
-
             data_error = purchase_object.check_error_in_form_data(current_product_amount, purchase_amount, user_balance)
+            if data_error:
+                return render(request, 'shop/product_detail.html', context={'product': current_product,
+                                                                            'error': data_error,
+                                                                            'form': form})
             new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
             purchase_object.move_amount_in_purchase(current_product_amount, purchase_amount, slug)
             purchase_object.move_links_in_purchase(current_product, purchase_amount, new_purchase)
             purchase_object.new_user_balance(user_balance, new_purchase, current_product, purchase_user)
 
-            if data_error:
-                return render(request, 'shop/product_detail.html', context={'product': current_product,
-                                                                            'error': data_error,
-                                                                            'form': form})
             return redirect(new_purchase)
         return render(request, 'shop/product_detail.html', context={'form': form})
 
