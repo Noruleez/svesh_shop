@@ -1,10 +1,15 @@
 import hashlib
+from decimal import *
+
 from urllib.parse import urlencode
+
+from accounts_shop.payment.models import AaioPaymentStatus
+from accounts_shop.shop.models import Balance
 
 
 class Payment:
 
-    def exists_incomplete_payment(self, request, instance_model):
+    def check_exists_incomplete_payment(self, request, instance_model):
         if len(instance_model.objects.filter(user=request.user, status='WaitPayment')) == 1:
             return True
 
@@ -17,7 +22,7 @@ class Payment:
 
     def save_data_about_payment(self, request, form, instance_model):
         amount = form.cleaned_data['amount']
-        if self.exists_incomplete_payment(request, instance_model):
+        if self.check_exists_incomplete_payment(request, instance_model):
             self.delete_incomplete_payment(request, instance_model)
             self.create_payment(request, instance_model, amount)
         else:
@@ -67,3 +72,19 @@ class Payment:
             'lang': lang
         }
         return f'https://aaio.io/merchant/pay?{urlencode(params)}'
+
+    def change_status_payment_to_success(self, request, model, name_payment_system):
+        if name_payment_system == 'aaio':
+            order_id = request.POST["order_id"]
+            amount = request.POST["amount"]
+        elif name_payment_system == 'freekassa':
+            order_id = request.POST["MERCHANT_ORDER_ID"]
+            amount = request.POST["AMOUNT"]
+        payment = model.objects.get(pk=int(order_id))
+        user_id = payment.user.id
+        user_balance = Balance.objects.get(user=user_id)
+        user_balance.amount = user_balance.amount + Decimal(amount)
+        user_balance.save()
+        payment.status = "SuccessPayment"
+        payment.save()
+        

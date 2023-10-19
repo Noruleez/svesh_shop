@@ -23,9 +23,9 @@ class FreeKassaPaymentSystem(View):
         form = FreeKassaPaymentForm(request.POST)
         instance_model = FreeKassaPaymentStatus
         if form.is_valid():
-            p = Payment()
-            p.save_data_about_payment(request, form, instance_model)
-            return redirect(p.get_freekassa_redirect_url(request, instance_model))
+            payment_object = Payment()
+            payment_object.save_data_about_payment(request, form, instance_model)
+            return redirect(payment_object.get_freekassa_redirect_url(request, instance_model))
         return render(request, 'payment/freekassa_payment_system.html', context={'form': form})
 
 
@@ -38,9 +38,9 @@ class AaioPaymentSystem(View):
         form = AaioPaymentForm(request.POST)
         instance_model = AaioPaymentStatus
         if form.is_valid():
-            p = Payment()
-            p.save_data_about_payment(request, form, instance_model)
-            return redirect(p.get_aaio_redirect_url(request, instance_model))
+            payment_object = Payment()
+            payment_object.save_data_about_payment(request, form, instance_model)
+            return redirect(payment_object.get_aaio_redirect_url(request, instance_model))
         return render(request, 'payment/aaio_payment_system.html', context={'form': form})
 
 
@@ -50,15 +50,9 @@ class FreeKassaNotify(View):
         return render(request, 'payment/freekassa_notify.html')
 
     def post(self, request):
-        order_id = request.POST["MERCHANT_ORDER_ID"]
-        amount = request.POST["AMOUNT"]
-        payment = FreeKassaPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
-        user_balance = Balance.objects.get(user=user_id)
-        user_balance.amount = user_balance.amount + Decimal(amount)
-        user_balance.save()
-        payment.status = "SuccessPayment"
-        payment.save()
+        payment_object = Payment()
+        payment_object.change_status_payment_to_success(self, request, model=FreeKassaPaymentStatus,
+                                                        name_payment_system='freekassa')
         return render(request, 'payment/freekassa_notify.html')
 
 
@@ -106,3 +100,4 @@ class FreeKassaFail(TemplateView):
 
 class AaioFail(TemplateView):
     template_name = 'payment/aaio_fail.html'
+
