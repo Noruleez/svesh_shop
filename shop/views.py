@@ -90,9 +90,11 @@ class ProductDetail(View):
             purchase_user = request.user
             user_balance = Balance.objects.get(user=purchase_user).amount
             current_product_amount = current_product.amount
+            current_product_price = current_product.price
 
             purchase_object = PurchaseLogic()
-            data_error = purchase_object.check_error_in_form_data(current_product_amount, purchase_amount, user_balance)
+            data_error = purchase_object.check_error_in_form_data(current_product_amount, current_product_price,
+                                                                  purchase_amount, user_balance)
             if data_error:
                 return render(request, 'shop/product_detail.html', context={'product': current_product,
                                                                             'error': data_error,
