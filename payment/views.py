@@ -3,9 +3,7 @@ from django.views.generic import View, TemplateView
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from decimal import *
 from .models import FreeKassaPaymentStatus, AaioPaymentStatus
-from shop.models import Balance
 from .forms import FreeKassaPaymentForm, AaioPaymentForm
 from .services import Payment
 
@@ -80,12 +78,10 @@ class FreeKassaSuccess(View):
 
 class AaioSuccess(View):
     def get(self, request):
-        order_id = request.GET.get("order_id")
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
-        user_email = (User.objects.get(id=user_id)).email
-        amount = request.GET.get("amount")
-        return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
+        payment = AaioPaymentStatus.objects.get(pk=int(request.GET.get("order_id")))
+        user_email = (User.objects.get(id=payment.user.id)).email
+        return render(request, 'payment/aaio_success.html', context={'user_email': user_email,
+                                                                     'amount': request.GET.get("amount")})
 
 
 class FreeKassaFail(TemplateView):

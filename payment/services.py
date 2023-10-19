@@ -84,4 +84,3 @@ class Payment:
         user_balance.save()
         payment.status = "SuccessPayment"
         payment.save()
-        

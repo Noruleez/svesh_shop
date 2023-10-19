@@ -9,7 +9,7 @@ class FreeKassaPaymentStatus(models.Model):
     status = models.CharField(max_length=150, db_index=True)
 
     def __str__(self):
-        return f'Статус оплаты пользователя {self.user.username}: {self.status}'
+        return f'{self.user.username} - {self.amount} | Статус оплаты - {self.status}'
 
 
 class AaioPaymentStatus(models.Model):
@@ -19,4 +19,4 @@ class AaioPaymentStatus(models.Model):
     status = models.CharField(max_length=150, db_index=True)
 
     def __str__(self):
-        return f'Статус оплаты пользователя {self.user.username}: {self.status}'
+        return f'{self.user.username} - {self.amount} | Статус оплаты - {self.status}'
