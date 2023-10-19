@@ -101,4 +101,3 @@ class FreeKassaFail(TemplateView):
 
 class AaioFail(TemplateView):
     template_name = 'payment/aaio_fail.html'
-
