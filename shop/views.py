@@ -75,6 +75,37 @@ class ProductsList(View):
         return render(request, 'shop/index.html', context={'products': products})
 
 
+def check_error_in_form_data(request, form, current_product_amount, purchase_amount, user_balance):
+    error = None
+    if purchase_amount <= 0:
+        error = 'Количество аккаунтов не может быть равным нулю или отрицательным'
+    elif current_product_amount < purchase_amount:
+        error = f'Аккаунтов осталось {current_product_amount} шт., вы запросили {purchase_amount}'
+    elif user_balance < purchase_amount * current_product_amount:
+        error = f'Вам не хватает {purchase_amount * current_product_amount - user_balance} руб., пополните баланс'
+    if error is None:
+        return False
+    return error
+
+
+def move_amount_in_purchase(current_product_amount, purchase_amount, current_product):
+    new_amount = current_product_amount - purchase_amount
+    current_product.update(amount=new_amount)
+
+
+def move_links_in_purchase(current_product, purchase_amount, new_purchase):
+    product_links_objects = ProductLink.objects.filter(product=current_product)
+    for i in range(purchase_amount):
+        product_link = product_links_objects[0].link
+        ProductLink.objects.get(link=product_link).delete()
+        PurchaseLink.objects.create(purchase=new_purchase, link=product_link, slug=product_link)
+
+
+def new_user_balance(user_balance, new_purchase, current_product, purchase_user):
+    new_balance = user_balance - current_product.price * new_purchase.amount
+    Balance.objects.filter(user=purchase_user).update(amount=new_balance)
+
+
 class ProductDetail(View):
     def get(self, request, slug):
         product = get_object_or_404(Product, slug=slug)
@@ -82,50 +113,32 @@ class ProductDetail(View):
         return render(request, 'shop/product_detail.html', context={'product': product, 'form': form})
 
     def post(self, request, slug):
-        product = Product.objects.get(slug=slug)
-        bound_purchase_form = PurchaseForm(request.POST)
-        if bound_purchase_form.is_valid():
-            new_purchase = bound_purchase_form.save(commit=False)
-            # Check amount purchase > 0
-            if new_purchase.amount <= 0:
-                error_0_amount = 'Количество аккаунтов не может быть равным нулю или отрицательным'
-                return render(request, 'shop/product_detail.html', context={'product': product,
-                                                                            'error_balance': error_0_amount,
-                                                                            'form': bound_purchase_form})
-            # Check product amount
-            if product.amount < new_purchase.amount:
-                error_amount = f'Аккаунтов осталось {product.amount} шт., вы запросили {new_purchase.amount}'
-                return render(request, 'shop/product_detail.html', context={'product': product,
-                                                                            'error_balance': error_amount,
-                                                                            'form': bound_purchase_form})
-            # Check balance
-            user_balance = Balance.objects.get(user=request.user).amount
-            if user_balance < new_purchase.amount * product.price:
-                error_balance = f'Вам не хватает \
-                                  {new_purchase.amount * product.price - user_balance} руб., пополните баланс'
-                return render(request, 'shop/product_detail.html', context={'product': product,
-                                                                            'error_balance': error_balance,
-                                                                            'form': bound_purchase_form}
-                              )
-            new_purchase.product = product
-            new_purchase.user = request.user
-            new_purchase = bound_purchase_form.save()
-            # Move amount
-            new_amount = product.amount - new_purchase.amount
-            Product.objects.filter(slug=slug).update(amount=new_amount)
-            # Move links
-            product_links_objects = ProductLink.objects.filter(product=product)
-            for i in range(new_purchase.amount):
-                product_link = product_links_objects[0].link
-                ProductLink.objects.get(link=product_link).delete()
-                PurchaseLink.objects.create(purchase=new_purchase, link=product_link, slug=product_link)
-            # Move balance
-            user_balance = Balance.objects.get(user=request.user).amount
-            new_balance = user_balance - product.price * new_purchase.amount
-            Balance.objects.filter(user=request.user).update(amount=new_balance)
+        form = PurchaseForm(request.POST)
+        if form.is_valid():
+            purchase_amount = form.cleaned_data['amount']
+            current_product = Product.objects.get(slug=slug)
+            purchase_user = request.user
+
+            user_balance = Balance.objects.get(user=purchase_user).amount
+            current_product_amount = current_product.amount
+
+            data_error = check_error_in_form_data(request, form, current_product_amount, purchase_amount, user_balance)
+            if data_error:
+                return render(request, 'shop/product_detail.html', context={'product': current_product,
+                                                                            'error': data_error,
+                                                                            'form': form})
+
+            new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
+
+            move_amount_in_purchase(current_product_amount, purchase_amount, current_product)
+
+            move_links_in_purchase(current_product, purchase_amount, new_purchase)
+
+            new_user_balance(user_balance, new_purchase, current_product, purchase_user)
+
             return redirect(new_purchase)
 
-        return render(request, 'shop/product_detail.html', context={'form': bound_purchase_form})
+        return render(request, 'shop/product_detail.html', context={'form': form})
 
 
 class PurchasesList(View):
