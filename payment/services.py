@@ -1,7 +1,7 @@
 import hashlib
 from decimal import *
 from urllib.parse import urlencode
-from accounts_shop.shop.models import Balance
+from shop.models import Balance
 
 
 class Payment:
