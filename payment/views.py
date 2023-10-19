@@ -50,11 +50,10 @@ class FreeKassaNotify(View):
         return render(request, 'payment/freekassa_notify.html')
 
     def post(self, request):
-        model = FreeKassaPaymentStatus
-        name_payment_system = 'freekassa'
         payment_object = Payment()
-        payment_object.change_status_payment_to_success(request, model, name_payment_system)
-        return render(request, 'payment/freekassa_notify.html')
+        payment_object.change_status_payment_to_success(request,
+                                                        model=FreeKassaPaymentStatus,
+                                                        name_payment_system='freekassa')
 
 
 @method_decorator(csrf_exempt, name='dispatch')
