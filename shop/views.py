@@ -83,10 +83,10 @@ class ProductDetail(View):
         return render(request, 'shop/product_detail.html', context={'product': product, 'form': form})
 
     def post(self, request, slug):
+        current_product = Product.objects.get(slug=slug)
         form = PurchaseForm(request.POST)
         if form.is_valid():
             purchase_amount = form.cleaned_data['amount']
-            current_product = Product.objects.get(slug=slug)
             purchase_user = request.user
             user_balance = Balance.objects.get(user=purchase_user).amount
             current_product_amount = current_product.amount
@@ -103,7 +103,7 @@ class ProductDetail(View):
             purchase_object.new_user_balance(user_balance, new_purchase, current_product, purchase_user)
 
             return redirect(new_purchase)
-        return render(request, 'shop/product_detail.html', context={'form': form})
+        return render(request, 'shop/product_detail.html', context={'product': current_product, 'form': form})
 
 
 class PurchasesList(View):
