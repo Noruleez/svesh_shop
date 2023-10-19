@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import View, TemplateView
 from .models import Product, Format, Country, Purchase, PurchaseLink, ProductLink, Balance
 from .forms import PurchaseForm
+from .services import PurchaseLogic
 
 
 class RobotsTxtView(TemplateView):
@@ -75,34 +76,6 @@ class ProductsList(View):
         return render(request, 'shop/index.html', context={'products': products})
 
 
-def check_error_in_form_data(current_product_amount, purchase_amount, user_balance):
-    if current_product_amount < purchase_amount:
-        error = f'Аккаунтов осталось {current_product_amount} шт., вы запросили {purchase_amount}'
-    elif user_balance < purchase_amount * current_product_amount:
-        error = f'Вам не хватает {purchase_amount * current_product_amount - user_balance} руб., пополните баланс'
-    else:
-        return False
-    return error
-
-
-def move_amount_in_purchase(current_product_amount, purchase_amount, slug):
-    new_amount = current_product_amount - purchase_amount
-    Product.objects.filter(slug=slug).update(amount=new_amount)
-
-
-def move_links_in_purchase(current_product, purchase_amount, new_purchase):
-    product_links_objects = ProductLink.objects.filter(product=current_product)
-    for i in range(purchase_amount):
-        product_link = product_links_objects[0].link
-        ProductLink.objects.get(link=product_link).delete()
-        PurchaseLink.objects.create(purchase=new_purchase, link=product_link, slug=product_link)
-
-
-def new_user_balance(user_balance, new_purchase, current_product, purchase_user):
-    new_balance = user_balance - current_product.price * new_purchase.amount
-    Balance.objects.filter(user=purchase_user).update(amount=new_balance)
-
-
 class ProductDetail(View):
     def get(self, request, slug):
         product = get_object_or_404(Product, slug=slug)
@@ -115,26 +88,22 @@ class ProductDetail(View):
             purchase_amount = form.cleaned_data['amount']
             current_product = Product.objects.get(slug=slug)
             purchase_user = request.user
-
             user_balance = Balance.objects.get(user=purchase_user).amount
             current_product_amount = current_product.amount
 
-            data_error = check_error_in_form_data(current_product_amount, purchase_amount, user_balance)
+            purchase_object = PurchaseLogic()
+
+            data_error = purchase_object.check_error_in_form_data(current_product_amount, purchase_amount, user_balance)
+            new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
+            purchase_object.move_amount_in_purchase(current_product_amount, purchase_amount, slug)
+            purchase_object.move_links_in_purchase(current_product, purchase_amount, new_purchase)
+            purchase_object.new_user_balance(user_balance, new_purchase, current_product, purchase_user)
+
             if data_error:
                 return render(request, 'shop/product_detail.html', context={'product': current_product,
                                                                             'error': data_error,
                                                                             'form': form})
-
-            new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
-
-            move_amount_in_purchase(current_product_amount, purchase_amount, slug)
-
-            move_links_in_purchase(current_product, purchase_amount, new_purchase)
-
-            new_user_balance(user_balance, new_purchase, current_product, purchase_user)
-
             return redirect(new_purchase)
-
         return render(request, 'shop/product_detail.html', context={'form': form})
 
 
