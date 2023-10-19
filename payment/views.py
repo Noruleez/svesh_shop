@@ -63,26 +63,19 @@ class AaioNotify(View):
         return render(request, 'payment/aaio_notify.html')
 
     def post(self, request):
-        order_id = request.POST["order_id"]
-        amount = request.POST["amount"]
-        payment = AaioPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
-        user_balance = Balance.objects.get(user=user_id)
-        user_balance.amount = user_balance.amount + Decimal(amount)
-        user_balance.save()
-        payment.status = "SuccessPayment"
-        payment.save()
+        payment_object = Payment()
+        payment_object.change_status_payment_to_success(request,
+                                                        model=AaioPaymentStatus,
+                                                        name_payment_system='aaio')
         return render(request, 'payment/aaio_notify.html')
 
 
 class FreeKassaSuccess(View):
     def get(self, request):
-        order_id = request.GET.get("MERCHANT_ORDER_ID")
-        payment = FreeKassaPaymentStatus.objects.get(pk=int(order_id))
-        user_id = payment.user.id
-        user_email = (User.objects.get(id=user_id)).email
-        amount = payment.amount
-        return render(request, 'payment/aaio_success.html', context={'user_email': user_email, 'amount': amount})
+        payment = FreeKassaPaymentStatus.objects.get(pk=int(request.GET.get("MERCHANT_ORDER_ID")))
+        user_email = (User.objects.get(id=payment.user.id)).email
+        return render(request, 'payment/aaio_success.html', context={'user_email': user_email,
+                                                                     'amount': payment.amount})
 
 
 class AaioSuccess(View):
