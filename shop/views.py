@@ -85,9 +85,9 @@ def check_error_in_form_data(current_product_amount, purchase_amount, user_balan
     return error
 
 
-def move_amount_in_purchase(current_product_amount, purchase_amount, current_product):
+def move_amount_in_purchase(current_product_amount, purchase_amount, slug):
     new_amount = current_product_amount - purchase_amount
-    current_product.update(amount=new_amount)
+    Product.objects.filter(slug=slug).update(amount=new_amount)
 
 
 def move_links_in_purchase(current_product, purchase_amount, new_purchase):
@@ -127,7 +127,7 @@ class ProductDetail(View):
 
             new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
 
-            move_amount_in_purchase(current_product_amount, purchase_amount, current_product)
+            move_amount_in_purchase(current_product_amount, purchase_amount, slug)
 
             move_links_in_purchase(current_product, purchase_amount, new_purchase)
 
