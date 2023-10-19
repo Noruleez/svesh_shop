@@ -1,4 +1,4 @@
-from accounts_shop.shop.models import Product, ProductLink, PurchaseLink, Balance
+from shop.models import Product, ProductLink, PurchaseLink, Balance
 
 
 class PurchaseLogic:
