@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import View, TemplateView
-from .models import Product, Format, Country, Purchase, PurchaseLink, ProductLink, Balance
+from .models import Product, Format, Country, Purchase, PurchaseLink, Balance
 from .forms import PurchaseForm
 from .services import PurchaseLogic
 
@@ -92,7 +92,7 @@ class ProductDetail(View):
             current_product_amount = current_product.amount
             current_product_price = current_product.price
             purchase_object = PurchaseLogic()
-            data_error = purchase_object.check_error_in_form_data(current_product_amount, current_product_price,
+            data_error = PurchaseLogic.check_error_in_form_data(current_product_amount, current_product_price,
                                                                   purchase_amount, user_balance)
             if data_error:
                 return render(request, 'shop/product_detail.html', context={'product': current_product,

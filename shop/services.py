@@ -3,7 +3,7 @@ from shop.models import Product, ProductLink, PurchaseLink, Balance, Purchase
 
 class PurchaseLogic:
 
-    def check_error_in_form_data(self, current_product_amount, current_product_price,
+    def check_error_in_form_data(current_product_amount, current_product_price,
                                  purchase_amount, user_balance):
         if current_product_amount < purchase_amount:
             error = f'Аккаунтов осталось {current_product_amount} шт., вы запросили {purchase_amount}'
