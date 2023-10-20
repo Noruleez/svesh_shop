@@ -83,15 +83,14 @@ class ProductDetail(View):
         return render(request, 'shop/product_detail.html', context={'product': product, 'form': form})
 
     def post(self, request, slug):
-        current_product = Product.objects.get(slug=slug)
         form = PurchaseForm(request.POST)
+        current_product = Product.objects.get(slug=slug)
         if form.is_valid():
             purchase_amount = form.cleaned_data['amount']
             purchase_user = request.user
             user_balance = Balance.objects.get(user=purchase_user).amount
             current_product_amount = current_product.amount
             current_product_price = current_product.price
-
             purchase_object = PurchaseLogic()
             data_error = purchase_object.check_error_in_form_data(current_product_amount, current_product_price,
                                                                   purchase_amount, user_balance)
@@ -99,11 +98,8 @@ class ProductDetail(View):
                 return render(request, 'shop/product_detail.html', context={'product': current_product,
                                                                             'error': data_error,
                                                                             'form': form})
-            new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
-            purchase_object.move_amount_in_purchase(current_product_amount, purchase_amount, slug)
-            purchase_object.move_links_in_purchase(current_product, purchase_amount, new_purchase)
-            purchase_object.new_user_balance(user_balance, new_purchase, current_product, purchase_user)
-
+            new_purchase = purchase_object.create_new_purchase(current_product, current_product_amount, purchase_user,
+                                                               purchase_amount, slug, user_balance)
             return redirect(new_purchase)
         return render(request, 'shop/product_detail.html', context={'product': current_product, 'form': form})
 

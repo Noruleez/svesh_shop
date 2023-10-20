@@ -1,4 +1,4 @@
-from shop.models import Product, ProductLink, PurchaseLink, Balance
+from shop.models import Product, ProductLink, PurchaseLink, Balance, Purchase
 
 
 class PurchaseLogic:
@@ -27,3 +27,11 @@ class PurchaseLogic:
     def new_user_balance(self, user_balance, new_purchase, current_product, purchase_user):
         new_balance = user_balance - current_product.price * new_purchase.amount
         Balance.objects.filter(user=purchase_user).update(amount=new_balance)
+
+    def create_new_purchase(self, current_product, current_product_amount,
+                             purchase_user, purchase_amount, slug, user_balance):
+        new_purchase = Purchase.objects.create(user=purchase_user, product=current_product, amount=purchase_amount)
+        self.move_amount_in_purchase(current_product_amount, purchase_amount, slug)
+        self.move_links_in_purchase(current_product, purchase_amount, new_purchase)
+        self.new_user_balance(user_balance, new_purchase, current_product, purchase_user)
+        return new_purchase
